@@ -112,7 +112,7 @@ function Events() {
 
   useEffect(()=>{
 
-    axios.get(`${backendUrl}/`)
+    axios.get(`${backendUrl}/events`)
         // axios.get("http://localhost:3001/")
 
     .then(result => 
