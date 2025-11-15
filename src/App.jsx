@@ -32,6 +32,7 @@
 //touches   لمسات   تَتشس 
 //properly   على وجه صحيح   برابلي
 //backticks باكتيكس ``
+//  كارنتيguarantee  يضمن
 
 
 
