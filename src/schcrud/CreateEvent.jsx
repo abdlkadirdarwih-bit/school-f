@@ -417,7 +417,7 @@ function CreateEvent() {
     formData.append("text", text);
 
     axios 
-      .post(`${backendUrl}createEvent/`, formData, {
+      .post(`${backendUrl}/createEvent/`, formData, {
             // .post("http://localhost:3001/createEvent/", formData, {
 
         headers: { "Content-Type": "multipart/form-data" },
