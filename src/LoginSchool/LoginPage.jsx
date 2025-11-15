@@ -27,6 +27,11 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
         password,
       });
       setMsg(res.data.message);
+
+      // ✅ Navigate to /admin if login is successful
+    if (res.data.message === "Login successful") {
+      navigate("/admin");
+    }
     } catch (err) {
       setMsg(err.response?.data?.message || "Login failed");
     }

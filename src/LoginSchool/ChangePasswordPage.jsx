@@ -116,7 +116,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     <button type="submit">Update Password</button>
          <p className="link">
-          <Link to="/">Back to Login</Link>
+          <Link to="/Login">Back to Login</Link>
         </p>
 
         {msg && <p className="msg">{msg}</p>}
