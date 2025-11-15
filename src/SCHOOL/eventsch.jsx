@@ -218,19 +218,40 @@ export default function Eventsch() {
  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   
-  useEffect(() => {
-    // Fetch data from your backend API
-        axios.get(`${backendUrl}/`)
-                // axios.get('http://localhost:3001/')
+  // useEffect(() => {
+  //   // Fetch data from your backend API
+  //       axios.get(`${backendUrl}/`)
+  //               // axios.get('http://localhost:3001/')
 
+  //     .then((res) => {
+  //       console.log('see product :',res.data);  
+  //       setInform(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error fetching data:", err);
+  //     });
+  // }, []);
+
+
+   useEffect(() => {
+    axios
+      .get(`${backendUrl}/`) // make sure backend route is /events
       .then((res) => {
-        console.log('see product :',res.data);  
-        setInform(res.data);
+        // Ensure we always set an array
+        const data = res.data;
+        if (Array.isArray(data)) {
+          setInform(data);
+        } else if (data && typeof data === "object" && data.events) {
+          setInform(Array.isArray(data.events) ? data.events : []);
+        } else {
+          setInform([]);
+        }
       })
       .catch((err) => {
-        console.error("Error fetching data:", err);
+        console.error("Error fetching events:", err);
+        setInform([]); // fallback to empty array
       });
-  }, []);
+  }, [backendUrl]);
   return (
 
 
@@ -295,17 +316,17 @@ export default function Eventsch() {
 
         <div className="sect3event">
 
-          {inform.map((listsch) => (
-           
-
+          {/* {inform.map((listsch) => (
             <Section3
               // imageId={item.imageId}
               // title={item.title}
               // name={item.title}
               {...listsch}
             />
-
-          ))}
+          ))} */}
+           {inform.map((listsch, index) => (
+        <Section3 key={listsch._id || index} {...listsch} />
+      ))}
         </div>
       
         

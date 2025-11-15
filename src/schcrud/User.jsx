@@ -112,7 +112,7 @@ function Events() {
 
   useEffect(()=>{
 
-    axios.get(`${backendUrl}/events`)
+    axios.get(`${backendUrl}/`)
         // axios.get("http://localhost:3001/")
 
     .then(result => 
@@ -141,7 +141,9 @@ function Events() {
 const handleDeleteImage = (eventId, imageIndex) => {
   // Send request to your backend to remove that image
   // axios.put(`${backendUrl}/deleteEventImage/${eventId}`, { index: imageIndex })
-   axios.put('http://localhost:3001/deleteEventImage/${eventId}', { index: imageIndex })
+  //  axios.put('http://localhost:3001/deleteEventImage/${eventId}', { index: imageIndex })
+     axios.put(`${backendUrl}/deleteEventImage/${eventId}`, { index: imageIndex })
+
 
     .then(res => {
       console.log("Image deleted:", res.data);
@@ -156,9 +158,10 @@ const handleDeleteImage = (eventId, imageIndex) => {
     })
     .catch(err => console.log(err));
 };
-
 const handleDelete  = (id) => {
-  axios.delete("http://localhost:3001/deleteUser/"+id)
+  // axios.delete("http://localhost:3001/deleteUser/"+id)
+    axios.delete(`${backendUrl}/deleteUser/`+id)
+
   .then(result => {console.log(result)
     window.location.reload()
   })
@@ -202,7 +205,9 @@ const handleDelete  = (id) => {
                 <tr className="tr-events" key={event._id}>
                   <td className="td-events">
                     <img
-                      src={`http://localhost:3001${event.mainImage}`}
+                      // src={`http://localhost:3001${event.mainImage}`}
+                                            src={`${backendUrl}${event.mainImage}`}
+
                       alt={event.title}
                       className="main-image-event"
                     />
@@ -214,7 +219,8 @@ const handleDelete  = (id) => {
                         {event.images.map((img, idx) => (
                           <div key={idx} className="image-wrapper">
                             <img
-                              src={`http://localhost:3001${img}`}
+                              // src={`http://localhost:3001${img}`}
+                                   src={`${backendUrl}${img}`}
                               alt={`img-${idx}`}
                               className="sub-image-event"
                             />
