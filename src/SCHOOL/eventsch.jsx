@@ -9,6 +9,8 @@ import {
   FiInstagram, FiMapPin, FiSearch, FiMail, FiPhone, FiEye, FiTrash, FiHelpCircle, FiUsers,
   FiFlag, FiHome
 } from "react-icons/fi";
+import { IoMdTime } from "react-icons/io";
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 // import { inform } from './datasch.jsx';
@@ -131,9 +133,8 @@ const handleMoreClick = () => {
 <img  className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" />
 
         <div className="place-title-sec3-event">
-                  <div className="date-sec3-event">{date}</div>
-
-         <div className="place-sec3-event">{place}</div>
+                 <div className="date-sec3-event"><IoMdTime />{date}</div>
+          <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
 </div>
         <div className="text-title-sec3-event">
          <div className="title-sec3-event">{title}</div>

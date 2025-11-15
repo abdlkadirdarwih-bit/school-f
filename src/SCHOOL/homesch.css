@@ -413,7 +413,7 @@ font-weight: 500; */
 .but-show-sch-home {
    /* margin: 0; */
   position: absolute;
-  top: 98%;
+  /* top: 98%; */
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -441,7 +441,7 @@ font-weight: 500; */
   margin-bottom: 70px;
 }
   .but-show-sch-home {
-  margin-top: 60px;
+  margin-top: 20px;
 
 }
 

@@ -360,8 +360,9 @@ import { useNavigate } from "react-router-dom";
 import myImage from "../assets/photo-xxl.png";
 
 function CreateEvent() {
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [mainImageFile, setMainImageFile] = useState(null);
-  const [imagesFiles, setImagesFiles] = useState([null]);
+  const [imagesFiles, setImagesFiles] = useState([]);
 
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
@@ -372,7 +373,7 @@ function CreateEvent() {
 
   // Previews for display
   const [mainImagePreview, setMainImagePreview] = useState("");
-  const [imagesPreviews, setImagesPreviews] = useState([""]);
+  const [imagesPreviews, setImagesPreviews] = useState([]);
 
   // Handle main image selection
   const handleMainImageChange = (e) => {
@@ -406,7 +407,6 @@ function CreateEvent() {
 
     const formData = new FormData();
     if (mainImageFile) formData.append("mainImage", mainImageFile);
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
     imagesFiles.forEach((file) => {
       if (file) formData.append("images", file);
     });
@@ -417,7 +417,7 @@ function CreateEvent() {
     formData.append("text", text);
 
     axios 
-      .post(`${backendUrl}/createEvent/`, formData, {
+      .post(`${backendUrl}/createEvent`, formData, {
             // .post("http://localhost:3001/createEvent/", formData, {
 
         headers: { "Content-Type": "multipart/form-data" },
@@ -441,7 +441,7 @@ function CreateEvent() {
 <div className="contacts-table-create-event-page">
   <div className="contacts-table-create-event-container">
     <form onSubmit={submit} className="contacts-table-create-event-form">
-      <h2 className="contacts-table-create-event-title">Add Event</h2>
+      <h2 className="contacts-table-create-event-title">إضافة حدث  </h2>
 
       <div className="form-group">
         <input

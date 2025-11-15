@@ -44,9 +44,9 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
         <img className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" />
 
         <div className="place-title-sec3-event">
-          <div className="date-sec3-event">{date}</div>
-
-          <div className="place-sec3-event">{place}</div>
+        <div className="date-sec3-event"><IoMdTime />{date}</div>
+       
+                 <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
         </div>
         <div className="text-title-sec3-event">
           <div className="title-sec3-event">{title}</div>
@@ -96,21 +96,26 @@ export default function Admin() {
 
  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+ 
+
   useEffect(() => {
-    // Fetch data from your backend API
-    // axios.get("http://localhost:3001/")
+        // Fetch data from your backend API 
         axios.get(`${backendUrl}/`)
+        // axios.get('http://localhost:3001/')
 
-      .then((res) => {
-        console.log('see product :', res.data);
-        setInform(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-      });
-  }, []);
+            .then((res) => {
+                console.log('see product :', res.data);
+                 const data = res.data;
+      setInform(Array.isArray(data) ? data : []);
 
+                // setInform(res.data);
+            })
+            .catch((err) => {
+                console.error("Error fetching data:", err);
+                      setInform([]);
 
+            });
+    }, [backendUrl]);
 
   useEffect(() => {
     axios.get(`${backendUrl}/contactschool`)
@@ -130,7 +135,7 @@ export default function Admin() {
       <div className="page-admins">
 
         <div>
-          <Link to="/create">
+          <Link to="/event">
             <button className="btn-event">Add Event</button>
           </Link>
         </div>
@@ -146,12 +151,13 @@ export default function Admin() {
        <div className="text-sec3-events"> بعض النشاطات التي تقوم بها مدرسة البدر 
 </div></div> */}
 
-              {/* <div className="sect3admin">
+              <div className="sect3admin">
 
-                {inform.map((listsch) => (
+                {/* {inform.map((listsch) => ( */}
+    {inform.map((listsch, index) => (
 
 
-                  <Section3
+            <Section3 key={listsch._id || index} 
                     // imageId={item.imageId}
                     // title={item.title}
                     // name={item.title}
@@ -159,14 +165,14 @@ export default function Admin() {
                   />
 
                 ))}
-              </div> */}
+              </div>
 
 
               {/* </div> */}
             </div>
 
 
-            {/* <div className="contacts-table-messages-wrapper">
+            <div className="contacts-table-messages-wrapper">
               <table className="contacts-table-messages">
                 <thead className="thead-messages">
                   <tr className="tr-messages">
@@ -189,7 +195,7 @@ export default function Admin() {
                   ))}
                 </tbody>
               </table>
-            </div> */}
+            </div>
 
           </div>
         </div>

@@ -206,7 +206,7 @@ import UpdateEvent from './schcrud/UpdateEvent.jsx'
    
          <ul >
             <li><a href="/">الرئيسية </a></li>
-              <li><a href="/aboutsch"> حول المدرسه </a></li>
+              <li><a href="/aboutsch"> حول المدرسة </a></li>
             <li><a href="/eventsch">الأنشطة </a></li>
             <li><a href="/contactsch">الاتصال </a></li>
 
