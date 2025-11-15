@@ -146,7 +146,7 @@ export default function Admin() {
        <div className="text-sec3-events"> بعض النشاطات التي تقوم بها مدرسة البدر 
 </div></div> */}
 
-              <div className="sect3admin">
+              {/* <div className="sect3admin">
 
                 {inform.map((listsch) => (
 
@@ -159,7 +159,7 @@ export default function Admin() {
                   />
 
                 ))}
-              </div>
+              </div> */}
 
 
               {/* </div> */}
