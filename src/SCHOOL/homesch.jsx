@@ -290,10 +290,15 @@ export default function Homesch() {
 
             .then((res) => {
                 console.log('see product :', res.data);
-                setInform(res.data);
+                 const data = res.data;
+      setInform(Array.isArray(data) ? data : []);
+
+                // setInform(res.data);
             })
             .catch((err) => {
                 console.error("Error fetching data:", err);
+                      setInform([]);
+
             });
     }, []);
   return (
@@ -404,10 +409,10 @@ export default function Homesch() {
 
   <div className="sect3home">
 
-    {/* {inform.slice(0, 3).map((listsch) => (
+    {/* {inform.slice(0, 3).map((listsch, index) => (
            
 
-            <Section3
+            <Section3 key={listsch._id || index} 
               // imageId={item.imageId}
               // title={item.title}
               // name={item.title}

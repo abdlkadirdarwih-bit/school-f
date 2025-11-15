@@ -233,25 +233,38 @@ export default function Eventsch() {
   // }, []);
 
 
-   useEffect(() => {
-    axios
-      .get(`${backendUrl}/`) // make sure backend route is /events
-      .then((res) => {
-        // Ensure we always set an array
-        const data = res.data;
-        if (Array.isArray(data)) {
-          setInform(data);
-        } else if (data && typeof data === "object" && data.events) {
-          setInform(Array.isArray(data.events) ? data.events : []);
-        } else {
-          setInform([]);
-        }
-      })
-      .catch((err) => {
-        console.error("Error fetching events:", err);
-        setInform([]); // fallback to empty array
-      });
-  }, [backendUrl]);
+  //  useEffect(() => {
+  //   axios
+  //     .get(`${backendUrl}/`) // make sure backend route is /events
+  //     .then((res) => {
+  //       // Ensure we always set an array
+  //       const data = res.data;
+  //       if (Array.isArray(data)) {
+  //         setInform(data);
+  //       } else if (data && typeof data === "object" && data.events) {
+  //         setInform(Array.isArray(data.events) ? data.events : []);
+  //       } else {
+  //         setInform([]);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error fetching events:", err);
+  //       setInform([]); // fallback to empty array
+  //     });
+  // }, [backendUrl]);
+
+  useEffect(() => {
+  axios.get(`${backendUrl}/`)
+    .then((res) => {
+      const data = res.data;
+      setInform(Array.isArray(data) ? data : []);
+    })
+    .catch((err) => {
+      console.error("Error fetching events:", err);
+      setInform([]);
+    });
+}, [backendUrl]);
+
   return (
 
 
