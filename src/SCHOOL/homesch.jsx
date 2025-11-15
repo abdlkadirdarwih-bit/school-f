@@ -409,7 +409,7 @@ export default function Homesch() {
 
   <div className="sect3home">
 
-    {/* {inform.slice(0, 3).map((listsch, index) => (
+    {inform.slice(0, 3).map((listsch, index) => (
            
 
             <Section3 key={listsch._id || index} 
@@ -419,7 +419,7 @@ export default function Homesch() {
               {...listsch}
             />
 
-          ))} */}
+          ))}
         </div>
         
         <button className="but-show-sch-home" onClick={() => navigate("/eventsch")}
