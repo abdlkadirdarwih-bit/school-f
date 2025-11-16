@@ -363,27 +363,27 @@ import myImage from "../assets/photo-xxl.png";
 
 function CreateEvent() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const navigate = useNavigate();
 
   const [mainImageBase64, setMainImageBase64] = useState("");
   const [imagesBase64, setImagesBase64] = useState([]);
-
-  const [mainImagePreview, setMainImagePreview] = useState("");
-  const [imagesPreviews, setImagesPreviews] = useState([]);
 
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  // Convert file → Base64
+  const [mainImagePreview, setMainImagePreview] = useState("");
+  const [imagesPreviews, setImagesPreviews] = useState([]);
+
+  const navigate = useNavigate();
+
+  // Convert file to Base64
   const convertToBase64 = (file, callback) => {
     const reader = new FileReader();
     reader.onloadend = () => callback(reader.result);
     reader.readAsDataURL(file);
   };
 
-  // Handle main image selection
   const handleMainImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -394,15 +394,14 @@ function CreateEvent() {
     });
   };
 
-  // Handle additional images selection
   const handleImageChange = (index, e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     convertToBase64(file, (base64) => {
-      const updatedBase64 = [...imagesBase64];
-      updatedBase64[index] = base64;
-      setImagesBase64(updatedBase64);
+      const updatedImages = [...imagesBase64];
+      updatedImages[index] = base64;
+      setImagesBase64(updatedImages);
 
       const updatedPreviews = [...imagesPreviews];
       updatedPreviews[index] = base64;
@@ -410,24 +409,8 @@ function CreateEvent() {
     });
   };
 
-  // Open hidden file input
-  const openFilePicker = (id) => {
-    document.getElementById(id).click();
-  };
+  const openFilePicker = (id) => document.getElementById(id).click();
 
-  // Add a new empty image slot
-  const addImageSlot = () => {
-    setImagesBase64([...imagesBase64, ""]);
-    setImagesPreviews([...imagesPreviews, ""]);
-  };
-
-  // Remove an image at a specific index
-  const removeImage = (index) => {
-    setImagesBase64(imagesBase64.filter((_, i) => i !== index));
-    setImagesPreviews(imagesPreviews.filter((_, i) => i !== index));
-  };
-
-  // Submit form
   const submit = (e) => {
     e.preventDefault();
 
@@ -452,50 +435,35 @@ function CreateEvent() {
       <div className="contacts-table-create-event-page">
         <div className="contacts-table-create-event-container">
           <form onSubmit={submit} className="contacts-table-create-event-form">
-            <h2 className="contacts-table-create-event-title">Add Event</h2>
+            <h2>Add Event</h2>
 
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Date"
-                className="form-input"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Place"
-                className="form-input"
-                value={place}
-                onChange={(e) => setPlace(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Title"
-                className="form-input"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Description"
-                className="form-input"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Place"
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
 
             {/* Main Image */}
-            <div className="form-group">
+            <div>
               <label>Main Image:</label>
               <input
                 type="file"
@@ -504,31 +472,32 @@ function CreateEvent() {
                 style={{ display: "none" }}
                 onChange={handleMainImageChange}
               />
-              <button
-                type="button"
-                className="btn-select"
-                onClick={() => openFilePicker("mainImageInput")}
-              >
+              <button type="button" onClick={() => openFilePicker("mainImageInput")}>
                 Select Main Image
               </button>
-              <div className="image-preview">
-                <img src={mainImagePreview || myImage} alt="Main" />
+              <div>
+                <img
+                  src={mainImagePreview || myImage}
+                  alt="Main"
+                  style={{ width: "200px", height: "200px", objectFit: "cover" }}
+                />
               </div>
             </div>
 
             {/* Additional Images */}
             <button
               type="button"
-              className="btn-add-image"
-              onClick={addImageSlot}
+              onClick={() => {
+                setImagesBase64([...imagesBase64, ""]);
+                setImagesPreviews([...imagesPreviews, ""]);
+              }}
             >
               + Add Image
             </button>
 
             {imagesBase64.map((img, idx) => (
-              <div className="form-group" key={idx}>
+              <div key={idx}>
                 <label>Image {idx + 1}:</label>
-
                 <input
                   type="file"
                   accept="image/*"
@@ -536,32 +505,29 @@ function CreateEvent() {
                   style={{ display: "none" }}
                   onChange={(e) => handleImageChange(idx, e)}
                 />
-
-                <button
-                  type="button"
-                  className="btn-select"
-                  onClick={() => openFilePicker(`imageInput${idx}`)}
-                >
+                <button type="button" onClick={() => openFilePicker(`imageInput${idx}`)}>
                   Select Image
                 </button>
-
                 <button
                   type="button"
-                  className="btn-remove"
-                  onClick={() => removeImage(idx)}
+                  onClick={() => {
+                    setImagesBase64(imagesBase64.filter((_, i) => i !== idx));
+                    setImagesPreviews(imagesPreviews.filter((_, i) => i !== idx));
+                  }}
                 >
                   Remove
                 </button>
-
-                <div className="image-preview">
-                  <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
+                <div>
+                  <img
+                    src={imagesPreviews[idx] || myImage}
+                    alt={`Image ${idx + 1}`}
+                    style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                  />
                 </div>
               </div>
             ))}
 
-            <button type="submit" className="btn-submit">
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>
