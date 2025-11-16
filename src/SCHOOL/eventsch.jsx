@@ -131,7 +131,9 @@ const handleMoreClick = () => {
         /> */}    
         {/* <img className="img2-event-sch" src={imageId[0]} alt={title} /> */}
 {/* <img className="img2-event-sch" src={mainImage} alt={title} /> */}
-<img  className="img2-event-sch" src={`${backendUrl}/${mainImage}`} alt="Main" />
+{/* <img  className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" /> */}
+{/* <img  className="img2-event-sch" src={`${backendUrl}/${mainImage}`} alt="Main" /> */}
+<img className="img2-event-sch" src={mainImage} alt="Main" />
 
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><IoMdTime />{date}</div>
@@ -217,7 +219,6 @@ export default function Eventsch() {
 
   //   const navigate = useNavigate();
   const [inform, setInform] = useState([]);
- const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   
   // useEffect(() => {
