@@ -99,8 +99,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Admin from './schcrud/admin.jsx'
 import   "./schcrud/admin.css";
 
-import Events from './schcrud/User.jsx'
-import   "./schcrud/User.css";
+import Events from './schcrud/Event.jsx'
+import   "./schcrud/Event.css";
 
 import CreateEvent from './schcrud/CreateEvent.jsx'
 import   "./schcrud/CreateEvent.css";

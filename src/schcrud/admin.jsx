@@ -10,6 +10,8 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
+import { IoMdTime } from "react-icons/io";
+import { FiMapPin } from "react-icons/fi";
 
 
 
@@ -41,7 +43,8 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
         /> */}
         {/* <img className="img2-event-sch" src={imageId[0]} alt={title} /> */}
         {/* <img className="img2-event-sch" src={mainImage} alt={title} /> */}
-        <img className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" />
+        {/* <img className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" /> */}
+<img className="img2-event-sch" src={mainImage} alt="Main" />
 
         <div className="place-title-sec3-event">
         <div className="date-sec3-event"><IoMdTime />{date}</div>
@@ -155,16 +158,15 @@ export default function Admin() {
 
                 {/* {inform.map((listsch) => ( */}
     {inform.map((listsch, index) => (
-
-
             <Section3 key={listsch._id || index} 
                     // imageId={item.imageId}
                     // title={item.title}
                     // name={item.title}
                     {...listsch}
                   />
-
                 ))}
+
+
               </div>
 
 

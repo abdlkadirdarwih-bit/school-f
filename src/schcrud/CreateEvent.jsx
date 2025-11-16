@@ -592,7 +592,7 @@ export default CreateEvent;
 //       <div className="form-group">
 //         <input
 //           type="text"
-//           placeholder="التاريخ"
+          // placeholder="التاريخ"
 //           className="form-input"
 //           value={date}
 //           onChange={(e) => setDate(e.target.value)}
