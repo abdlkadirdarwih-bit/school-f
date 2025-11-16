@@ -360,56 +360,69 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import myImage from "../assets/photo-xxl.png";
+import imageCompression from "browser-image-compression"; // optional for compression
 
 function CreateEvent() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
 
   const [mainImageBase64, setMainImageBase64] = useState("");
   const [imagesBase64, setImagesBase64] = useState([]);
+  const [mainImagePreview, setMainImagePreview] = useState("");
+  const [imagesPreviews, setImagesPreviews] = useState([]);
 
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const [mainImagePreview, setMainImagePreview] = useState("");
-  const [imagesPreviews, setImagesPreviews] = useState([]);
-
-  const navigate = useNavigate();
-
   // Convert file to Base64
-  const convertToBase64 = (file, callback) => {
-    const reader = new FileReader();
-    reader.onloadend = () => callback(reader.result);
-    reader.readAsDataURL(file);
-  };
+  const convertToBase64 = (file) =>
+    new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
 
-  const handleMainImageChange = (e) => {
+  // Handle main image selection with optional compression
+  const handleMainImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    convertToBase64(file, (base64) => {
-      setMainImageBase64(base64);
-      setMainImagePreview(base64);
-    });
+    const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+    const base64 = await convertToBase64(compressed);
+    setMainImageBase64(base64);
+    setMainImagePreview(base64);
   };
 
-  const handleImageChange = (index, e) => {
+  // Handle additional images selection
+  const handleImageChange = async (index, e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    convertToBase64(file, (base64) => {
-      const updatedImages = [...imagesBase64];
-      updatedImages[index] = base64;
-      setImagesBase64(updatedImages);
+    const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+    const base64 = await convertToBase64(compressed);
 
-      const updatedPreviews = [...imagesPreviews];
-      updatedPreviews[index] = base64;
-      setImagesPreviews(updatedPreviews);
-    });
+    const updatedBase64 = [...imagesBase64];
+    updatedBase64[index] = base64;
+    setImagesBase64(updatedBase64);
+
+    const updatedPreviews = [...imagesPreviews];
+    updatedPreviews[index] = base64;
+    setImagesPreviews(updatedPreviews);
   };
 
   const openFilePicker = (id) => document.getElementById(id).click();
+
+  const addImageSlot = () => {
+    setImagesBase64([...imagesBase64, ""]);
+    setImagesPreviews([...imagesPreviews, ""]);
+  };
+
+  const removeImage = (index) => {
+    setImagesBase64(imagesBase64.filter((_, i) => i !== index));
+    setImagesPreviews(imagesPreviews.filter((_, i) => i !== index));
+  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -417,7 +430,7 @@ function CreateEvent() {
     axios
       .post(`${backendUrl}/createEventBase64`, {
         mainImage: mainImageBase64,
-        images: imagesBase64,
+        images: imagesBase64.filter(Boolean), // remove empty slots
         date,
         place,
         title,
@@ -427,7 +440,7 @@ function CreateEvent() {
         console.log("Event added:", res.data);
         navigate("/eventsch");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -435,99 +448,46 @@ function CreateEvent() {
       <div className="contacts-table-create-event-page">
         <div className="contacts-table-create-event-container">
           <form onSubmit={submit} className="contacts-table-create-event-form">
-            <h2>Add Event</h2>
+            <h2 className="contacts-table-create-event-title">Add Event</h2>
 
-            <input
-              type="text"
-              placeholder="Date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Place"
-              value={place}
-              onChange={(e) => setPlace(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Description"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
+            <div className="form-group">
+              <input type="text" placeholder="Date" className="form-input" value={date} onChange={(e) => setDate(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <input type="text" placeholder="Place" className="form-input" value={place} onChange={(e) => setPlace(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <input type="text" placeholder="Title" className="form-input" value={title} onChange={(e) => setTitle(e.target.value)} />
+            </div>
+            <div className="form-group">
+              <input type="text" placeholder="Description" className="form-input" value={text} onChange={(e) => setText(e.target.value)} />
+            </div>
 
             {/* Main Image */}
-            <div>
+            <div className="form-group">
               <label>Main Image:</label>
-              <input
-                type="file"
-                accept="image/*"
-                id="mainImageInput"
-                style={{ display: "none" }}
-                onChange={handleMainImageChange}
-              />
-              <button type="button" onClick={() => openFilePicker("mainImageInput")}>
-                Select Main Image
-              </button>
-              <div>
-                <img
-                  src={mainImagePreview || myImage}
-                  alt="Main"
-                  style={{ width: "200px", height: "200px", objectFit: "cover" }}
-                />
+              <input type="file" accept="image/*" id="mainImageInput" style={{ display: "none" }} onChange={handleMainImageChange} />
+              <button type="button" className="btn-select" onClick={() => openFilePicker("mainImageInput")}>Select Main Image</button>
+              <div className="image-preview">
+                <img src={mainImagePreview || myImage} alt="Main" />
               </div>
             </div>
 
             {/* Additional Images */}
-            <button
-              type="button"
-              onClick={() => {
-                setImagesBase64([...imagesBase64, ""]);
-                setImagesPreviews([...imagesPreviews, ""]);
-              }}
-            >
-              + Add Image
-            </button>
-
+            <button type="button" className="btn-add-image" onClick={addImageSlot}>+ Add Image</button>
             {imagesBase64.map((img, idx) => (
-              <div key={idx}>
+              <div className="form-group" key={idx}>
                 <label>Image {idx + 1}:</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  id={`imageInput${idx}`}
-                  style={{ display: "none" }}
-                  onChange={(e) => handleImageChange(idx, e)}
-                />
-                <button type="button" onClick={() => openFilePicker(`imageInput${idx}`)}>
-                  Select Image
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setImagesBase64(imagesBase64.filter((_, i) => i !== idx));
-                    setImagesPreviews(imagesPreviews.filter((_, i) => i !== idx));
-                  }}
-                >
-                  Remove
-                </button>
-                <div>
-                  <img
-                    src={imagesPreviews[idx] || myImage}
-                    alt={`Image ${idx + 1}`}
-                    style={{ width: "150px", height: "150px", objectFit: "cover" }}
-                  />
+                <input type="file" accept="image/*" id={`imageInput${idx}`} style={{ display: "none" }} onChange={(e) => handleImageChange(idx, e)} />
+                <button type="button" className="btn-select" onClick={() => openFilePicker(`imageInput${idx}`)}>Select Image</button>
+                <button type="button" className="btn-remove" onClick={() => removeImage(idx)}>Remove</button>
+                <div className="image-preview">
+                  <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
                 </div>
               </div>
             ))}
 
-            <button type="submit">Submit</button>
+            <button type="submit" className="btn-submit">Submit</button>
           </form>
         </div>
       </div>
