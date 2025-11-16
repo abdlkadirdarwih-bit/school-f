@@ -60,7 +60,7 @@ function Section1({images = [], title, text }) {
    <div className='images-eventmore-sec1-sch'
   //  style={{ display: "flex", gap: "10px", flex: "1" }}
    >
-    {images.length > 0 &&
+    {/* {images.length > 0 &&
     // images.map((img, idx) => (
     //         <img
     //           key={idx}
@@ -75,22 +75,25 @@ function Section1({images = [], title, text }) {
      src={`${backendUrl}${img}`}
 
     alt={`Img ${idx}`}  />
-          ))}
+          ))} */}
 
 
-            {/* {images.length > 0 ? (
+            {images.length > 0 && (
             images.map((img, idx) => (
               <img
                 key={idx}
                 className="img1-eventmoresch-sec1-sch"
-                src={img || myImage} // Base64 or fallback
+                // src={img || myImage} // Base64 or fallback
+                    src={img} // Base64 or fallback
                 alt={`Image ${idx + 1}`}
                 style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "8px" }}
               />
             ))
-          ) : (
-            <img src={myImage} alt="Fallback" style={{ width: "150px", height: "150px" }} />
-          )} */}
+          ) 
+          //  (
+          //    <img src={myImage} alt="Fallback" style={{ width: "150px", height: "150px" }} />
+          // )
+          }
 
           {/* <img className="img1-eventmoresch-sec1-sch" src={image1} alt={title} /> */}
           {/* <img className="img1-eventmoresch-sec1-sch" src={image2} alt={title} />
@@ -175,7 +178,12 @@ export default function Eventmoresch() {
     <div className="sect1eventmore">
 
         <Section1
-  //         title="أطلب منتجك"
+   title={event.title}
+          text={event.text}
+          // image1={event.imageId}
+          //           image2={event.imageId}
+  images={event.images}
+ //         title="أطلب منتجك"
   //       // imageId: '/assets/image-jonathan'
 
   //          text='  هل تبحث عن
@@ -186,13 +194,9 @@ export default function Eventmoresch() {
   //            image2= 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQF8UhOkTG9alEkYKkzPfnlHawXQRXK15XUQ&s.jpg'
 
   //    image3='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu5DoqF7PBa-MgldlEW-VUYgs9-rE86Za3SQ&s'
-     title={event.title}
-          text={event.text}
-          // image1={event.imageId}
-          //           image2={event.imageId}
-  images={event.images}
-
+   
      />
+     
       </div>
 
     </div>
