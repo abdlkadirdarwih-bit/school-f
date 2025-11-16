@@ -363,19 +363,18 @@ import myImage from "../assets/photo-xxl.png";
 
 function CreateEvent() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
 
   const [mainImageBase64, setMainImageBase64] = useState("");
   const [imagesBase64, setImagesBase64] = useState([]);
+
+  const [mainImagePreview, setMainImagePreview] = useState("");
+  const [imagesPreviews, setImagesPreviews] = useState([]);
 
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
-
-  const [mainImagePreview, setMainImagePreview] = useState("");
-  const [imagesPreviews, setImagesPreviews] = useState([]);
-
-  const navigate = useNavigate();
 
   // Convert file → Base64
   const convertToBase64 = (file, callback) => {
@@ -384,7 +383,7 @@ function CreateEvent() {
     reader.readAsDataURL(file);
   };
 
-  // Handle Main Image
+  // Handle main image selection
   const handleMainImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -395,15 +394,15 @@ function CreateEvent() {
     });
   };
 
-  // Handle Additional Images
+  // Handle additional images selection
   const handleImageChange = (index, e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     convertToBase64(file, (base64) => {
-      const updatedImages = [...imagesBase64];
-      updatedImages[index] = base64;
-      setImagesBase64(updatedImages);
+      const updatedBase64 = [...imagesBase64];
+      updatedBase64[index] = base64;
+      setImagesBase64(updatedBase64);
 
       const updatedPreviews = [...imagesPreviews];
       updatedPreviews[index] = base64;
@@ -411,11 +410,24 @@ function CreateEvent() {
     });
   };
 
+  // Open hidden file input
   const openFilePicker = (id) => {
     document.getElementById(id).click();
   };
 
-  // Submit Base64 Data
+  // Add a new empty image slot
+  const addImageSlot = () => {
+    setImagesBase64([...imagesBase64, ""]);
+    setImagesPreviews([...imagesPreviews, ""]);
+  };
+
+  // Remove an image at a specific index
+  const removeImage = (index) => {
+    setImagesBase64(imagesBase64.filter((_, i) => i !== index));
+    setImagesPreviews(imagesPreviews.filter((_, i) => i !== index));
+  };
+
+  // Submit form
   const submit = (e) => {
     e.preventDefault();
 
@@ -492,7 +504,6 @@ function CreateEvent() {
                 style={{ display: "none" }}
                 onChange={handleMainImageChange}
               />
-
               <button
                 type="button"
                 className="btn-select"
@@ -500,12 +511,8 @@ function CreateEvent() {
               >
                 Select Main Image
               </button>
-
               <div className="image-preview">
-                <img
-                  src={mainImagePreview || myImage}
-                  alt="Main"
-                />
+                <img src={mainImagePreview || myImage} alt="Main" />
               </div>
             </div>
 
@@ -513,10 +520,7 @@ function CreateEvent() {
             <button
               type="button"
               className="btn-add-image"
-              onClick={() => {
-                setImagesBase64([...imagesBase64, ""]);
-                setImagesPreviews([...imagesPreviews, ""]);
-              }}
+              onClick={addImageSlot}
             >
               + Add Image
             </button>
@@ -544,19 +548,13 @@ function CreateEvent() {
                 <button
                   type="button"
                   className="btn-remove"
-                  onClick={() => {
-                    setImagesBase64(imagesBase64.filter((_, i) => i !== idx));
-                    setImagesPreviews(imagesPreviews.filter((_, i) => i !== idx));
-                  }}
+                  onClick={() => removeImage(idx)}
                 >
                   Remove
                 </button>
 
                 <div className="image-preview">
-                  <img
-                    src={imagesPreviews[idx] || myImage}
-                    alt={`Image ${idx + 1}`}
-                  />
+                  <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
                 </div>
               </div>
             ))}
