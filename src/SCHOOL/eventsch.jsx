@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 // import {Link} from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;       
 
 
 
@@ -127,10 +128,10 @@ const handleMoreClick = () => {
           className="img2-event-sch"
           src={imageId}
           alt={title}
-        /> */}
+        /> */}    
         {/* <img className="img2-event-sch" src={imageId[0]} alt={title} /> */}
 {/* <img className="img2-event-sch" src={mainImage} alt={title} /> */}
-<img  className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" />
+<img  className="img2-event-sch" src={`${backendUrl}/${mainImage}`} alt="Main" />
 
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><IoMdTime />{date}</div>

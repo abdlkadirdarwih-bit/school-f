@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// import myImage from "../assets/photo-xxl.png";
 
 // import { inform } from './datasch.jsx';
 // import {FaWhatsapp,FaShoppingCart,FaMotorcycle  } from 'react-icons/fa'
@@ -76,6 +77,21 @@ function Section1({images = [], title, text }) {
     alt={`Img ${idx}`}  />
           ))}
 
+
+            {/* {images.length > 0 ? (
+            images.map((img, idx) => (
+              <img
+                key={idx}
+                className="img1-eventmoresch-sec1-sch"
+                src={img || myImage} // Base64 or fallback
+                alt={`Image ${idx + 1}`}
+                style={{ width: "150px", height: "150px", objectFit: "cover", borderRadius: "8px" }}
+              />
+            ))
+          ) : (
+            <img src={myImage} alt="Fallback" style={{ width: "150px", height: "150px" }} />
+          )} */}
+
           {/* <img className="img1-eventmoresch-sec1-sch" src={image1} alt={title} /> */}
           {/* <img className="img1-eventmoresch-sec1-sch" src={image2} alt={title} />
           <img className="img1-eventmoresch-sec1-sch" src={image3} alt={title} />   */}
@@ -121,6 +137,17 @@ export default function Eventmoresch() {
   //   {console.log("event data:", event)}
 
   // }, [event]);
+
+  // useEffect(() => {
+  //   // If page refreshed, try fallback from localStorage
+  //   if (location.state?.event) {
+  //     setEvent(location.state.event);
+  //     localStorage.setItem("currentEvent", JSON.stringify(location.state.event));
+  //   } else {
+  //     const stored = localStorage.getItem("currentEvent");
+  //     if (stored) setEvent(JSON.parse(stored));
+  //   }
+  // }, [location.state]);
   if (!event) {
     return <p>لا يوجد بيانات للفعالية.</p>;
   }

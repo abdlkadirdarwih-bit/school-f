@@ -360,17 +360,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import myImage from "../assets/photo-xxl.png";
-import imageCompression from "browser-image-compression"; // optional for compression
+import imageCompression from "browser-image-compression";
 
 function CreateEvent() {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const [mainImageBase64, setMainImageBase64] = useState("");
-  const [imagesBase64, setImagesBase64] = useState([]);
   const [mainImagePreview, setMainImagePreview] = useState("");
-  const [imagesPreviews, setImagesPreviews] = useState([]);
-
   const [date, setDate] = useState("");
   const [place, setPlace] = useState("");
   const [title, setTitle] = useState("");
@@ -384,7 +381,7 @@ function CreateEvent() {
       reader.readAsDataURL(file);
     });
 
-  // Handle main image selection with optional compression
+  // Handle main image selection
   const handleMainImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -395,42 +392,14 @@ function CreateEvent() {
     setMainImagePreview(base64);
   };
 
-  // Handle additional images selection
-  const handleImageChange = async (index, e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
-    const base64 = await convertToBase64(compressed);
-
-    const updatedBase64 = [...imagesBase64];
-    updatedBase64[index] = base64;
-    setImagesBase64(updatedBase64);
-
-    const updatedPreviews = [...imagesPreviews];
-    updatedPreviews[index] = base64;
-    setImagesPreviews(updatedPreviews);
-  };
-
   const openFilePicker = (id) => document.getElementById(id).click();
-
-  const addImageSlot = () => {
-    setImagesBase64([...imagesBase64, ""]);
-    setImagesPreviews([...imagesPreviews, ""]);
-  };
-
-  const removeImage = (index) => {
-    setImagesBase64(imagesBase64.filter((_, i) => i !== index));
-    setImagesPreviews(imagesPreviews.filter((_, i) => i !== index));
-  };
 
   const submit = (e) => {
     e.preventDefault();
 
     axios
       .post(`${backendUrl}/createEventBase64`, {
-        mainImage: mainImageBase64,
-        images: imagesBase64.filter(Boolean), // remove empty slots
+        mainImage: mainImageBase64, // only main image
         date,
         place,
         title,
@@ -438,7 +407,7 @@ function CreateEvent() {
       })
       .then((res) => {
         console.log("Event added:", res.data);
-        navigate("/eventsch");
+        navigate("/eventsch"); // list page where mainImageBase64 is displayed
       })
       .catch((err) => console.error(err));
   };
@@ -473,20 +442,6 @@ function CreateEvent() {
               </div>
             </div>
 
-            {/* Additional Images */}
-            <button type="button" className="btn-add-image" onClick={addImageSlot}>+ Add Image</button>
-            {imagesBase64.map((img, idx) => (
-              <div className="form-group" key={idx}>
-                <label>Image {idx + 1}:</label>
-                <input type="file" accept="image/*" id={`imageInput${idx}`} style={{ display: "none" }} onChange={(e) => handleImageChange(idx, e)} />
-                <button type="button" className="btn-select" onClick={() => openFilePicker(`imageInput${idx}`)}>Select Image</button>
-                <button type="button" className="btn-remove" onClick={() => removeImage(idx)}>Remove</button>
-                <div className="image-preview">
-                  <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
-                </div>
-              </div>
-            ))}
-
             <button type="submit" className="btn-submit">Submit</button>
           </form>
         </div>
@@ -496,7 +451,6 @@ function CreateEvent() {
 }
 
 export default CreateEvent;
-
 
 
 // 2
