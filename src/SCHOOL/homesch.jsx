@@ -139,7 +139,9 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
         /> */}
         {/* <img className="img2-event-sch" src={imageId[0]} alt={title} /> */}
         {/* <img className="img2-event-sch" src={mainImage} alt={title} /> */}
-        <img className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" />
+        {/* <img className="img2-event-sch" src={`http://localhost:3001${mainImage}`} alt="Main" /> */}
+<img className="img2-event-sch" src={mainImage} alt="Main" />
+
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><span className='icontime'><IoMdTime  /></span>{date}</div>
 

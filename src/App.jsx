@@ -106,6 +106,7 @@ import CreateEvent from './schcrud/CreateEvent.jsx'
 import   "./schcrud/CreateEvent.css";
 
 import UpdateEvent from './schcrud/UpdateEvent.jsx'
+import   "./schcrud/UpdateEvent.css";
 
 // import Users from './User'
 // import CreateEvent from './CreateUser'

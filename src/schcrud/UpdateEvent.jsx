@@ -116,189 +116,506 @@
 //   export default UpdateUser;
 
 
-
-import React,{useState,useEffect}  from "react";
-import {useParams,useNavigate}  from "react-router-dom";
-import axios from 'axios'
+//true
+// import React,{useState,useEffect}  from "react";
+// import {useParams,useNavigate}  from "react-router-dom";
+// import axios from 'axios'
 
  
-function UpdateEvent() {
-  const{id}=useParams()
-    // const [  imageId,setImageId] = useState()
-    const [mainImage, setMainImage] = useState("");
-const [images, setImages] = useState([""]); // up to 3 images(["", "", ""])
-  const [date,setDate] = useState("")
-  const [place,setPlace] = useState("")
-  const [title ,setTitle] = useState("")
-    const [ text,setText] = useState("")
- const backendUrl = import.meta.env.VITE_BACKEND_URL;
-        // axios.get(`${backendUrl}/`)
+// function UpdateEvent() {
+//   const{id}=useParams()
+//     // const [  imageId,setImageId] = useState()
+//     const [mainImage, setMainImage] = useState("");
+// const [images, setImages] = useState([""]); // up to 3 images(["", "", ""])
+//   const [date,setDate] = useState("")
+//   const [place,setPlace] = useState("")
+//   const [title ,setTitle] = useState("")
+//     const [ text,setText] = useState("")
+//  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+//         // axios.get(`${backendUrl}/`)
   
 
-  const navigate=useNavigate()
-// Fetch it from DB in useEffect:
-    useEffect(()=>{
-      axios.get(`${backendUrl}/getUser`+id)
-      .then(result => {console.log(result)
-      setMainImage(result.data.mainImage || "");
-      setImages(result.data.images?.length ? result.data.images : [""]);
-      // setImageId(result.data.imageId) 
-      setDate(result.data.date)
-     setPlace(result.data.place)
-      setTitle(result.data.title )
-            setText(result.data. text)
+//   const navigate=useNavigate()
+// // Fetch it from DB in useEffect:
+//     useEffect(()=>{
+//       axios.get(`${backendUrl}/getUser/`+id)
+//       .then(result => {console.log(result)
+//       setMainImage(result.data.mainImage || "");
+//       setImages(result.data.images?.length ? result.data.images : [""]);
+//       // setImageId(result.data.imageId) 
+//       setDate(result.data.date)
+//      setPlace(result.data.place)
+//       setTitle(result.data.title )
+//             setText(result.data. text)
    
-    })
-      .catch(err => console.log(err))
-  },[])
-// Send it in update request:
-  const Update  = (e) => {
-    e.preventDefault();
-    // axios.put("http://localhost:3001/updateEvent/"+id, {mainImage,
-        axios.put( `${backendUrl}/updateEvent/`+id, {mainImage,
+//     })
+//       .catch(err => console.log(err))
+//   },[])
 
-    images,date,place,title,text   
-})
-    // axios.put(`http://localhost:3001/updateUser/${id}`, { productName, productPrice, productQuantity })
 
-    .then(result => {
-      console.log(result)
-      navigate('/')
-   })
-      .catch(err => console.log(err))
+
+
+
+// // Send it in update request:
+//   const Update  = (e) => {
+//     e.preventDefault();
+//     // axios.put("http://localhost:3001/updateEvent/"+id, {mainImage,
+//         axios.put( `${backendUrl}/updateEvent/`+id, {mainImage,
+
+//     images,date,place,title,text   
+// })
+//     // axios.put(`http://localhost:3001/updateUser/${id}`, { productName, productPrice, productQuantity })
+
+//     .then(result => {
+//       console.log(result)
+//       navigate('/')
+//    })
+//       .catch(err => console.log(err))
   
-  }
-    //  <div className="d-flex  justify-content-center align-items-center"
-    //         style={{ width: "100vw", minHeight: "100vh",marginTop:"110px", backgroundColor: "rgb(205,230,155)" }}
+//   }
+//     //  <div className="d-flex  justify-content-center align-items-center"
+//     //         style={{ width: "100vw", minHeight: "100vh",marginTop:"110px", backgroundColor: "rgb(205,230,155)" }}
 
-    //   ></div>
+//     //   ></div>
+//   return (
+
+
+
+
+
+
+// <div className="cte-container">
+//   <div className="cte-card">
+
+//     <form onSubmit={Update}>
+
+//       <div className="cte-field">
+//         <label>date</label>
+//         <input
+//           className="cte-input"
+//           value={date}
+//           onChange={(e) => setDate(e.target.value)}
+//         />
+//       </div>
+
+//       <div className="cte-field">
+//         <label>place</label>
+//         <input
+//           className="cte-input"
+//           value={place}
+//           onChange={(e) => setPlace(e.target.value)}
+//         />
+//       </div>
+
+//       <div className="cte-field">
+//         <label>title</label>
+//         <input
+//           className="cte-input"
+//           value={title}
+//           onChange={(e) => setTitle(e.target.value)}
+//         />
+//       </div>
+
+//       <div className="cte-field">
+//         <label>text</label>
+//         <input
+//           className="cte-input"
+//           value={text}
+//           onChange={(e) => setText(e.target.value)}
+//         />
+//       </div>
+
+//       <div className="cte-field">
+//         <label>Main Image</label>
+//         <input
+//           className="cte-input"
+//           value={mainImage}
+//           onChange={(e) => setMainImage(e.target.value)}
+//         />
+//       </div>
+
+//       {images.map((img, idx) => (
+//         <div className="cte-image-row" key={idx}>
+//           <div className="flex-grow-1">
+//             <label>Detail Image {idx + 1}</label>
+//             <input
+//               className="cte-input"
+//               value={img}
+//               onChange={(e) => {
+//                 const newImages = [...images];
+//                 newImages[idx] = e.target.value;
+//                 setImages(newImages);
+//               }}
+//             />
+//           </div>
+
+//           <button
+//             type="button"
+//             className="btn btn-danger btn-sm cte-del-btn"
+//             onClick={() => {
+//               const newImages = images.filter((_, i) => i !== idx);
+//               setImages(newImages);
+//             }}
+//           >
+//             Delete
+//           </button>
+//         </div>
+//       ))}
+
+//       <button
+//         type="button"
+//         className="btn btn-primary btn-sm cte-add-btn"
+//         onClick={() => setImages([...images, ""])}
+//       >
+//         + Add Image
+//       </button>
+
+//       <br />
+
+//       <button className="btn btn-success cte-submit">Update</button>
+//     </form>
+
+//   </div>
+// </div>
+
+
+//   )
+// }
+
+//   export default UpdateEvent;
+
+
+
+
+
+
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import myImage from "../assets/photo-xxl.png";
+import imageCompression from "browser-image-compression";
+
+function UpdateEvent() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  const [date, setDate] = useState("");
+  const [place, setPlace] = useState("");
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
+  const [mainImageBase64, setMainImageBase64] = useState("");
+  const [mainImagePreview, setMainImagePreview] = useState(myImage);
+
+  const [imagesBase64, setImagesBase64] = useState([]);
+  const [imagesPreviews, setImagesPreviews] = useState([]);
+
+  // Convert file to Base64
+  const convertToBase64 = (file) =>
+    new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+
+  // Load event from backend
+  useEffect(() => {
+    axios
+      .get(`${backendUrl}/getUser/${id}`)
+      .then((res) => {
+        const d = res.data;
+        setDate(d.date || "");
+        setPlace(d.place || "");
+        setTitle(d.title || "");
+        setText(d.text || "");
+        setMainImageBase64(d.mainImage || "");
+        setMainImagePreview(d.mainImage || myImage);
+        setImagesBase64(d.images || []);
+        setImagesPreviews(d.images || []);
+      })
+      .catch(console.log);
+  }, [id]);
+
+  // Handle Main Image
+  const handleMainImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const compressed = await imageCompression(file, { maxSizeMB: 0.01, maxWidthOrHeight: 800 });
+    const base64 = await convertToBase64(compressed);
+    setMainImageBase64(base64);
+    setMainImagePreview(base64);
+  };
+
+  // Handle Detail Image
+  const handleImageChange = async (index, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const compressed = await imageCompression(file, { maxSizeMB: 0.01, maxWidthOrHeight: 800 });
+    const base64 = await convertToBase64(compressed);
+
+    const newBase64 = [...imagesBase64];
+    newBase64[index] = base64;
+    setImagesBase64(newBase64);
+
+    const newPreviews = [...imagesPreviews];
+    newPreviews[index] = base64;
+    setImagesPreviews(newPreviews);
+  };
+
+  const openFilePicker = (id) => document.getElementById(id).click();
+
+  const addImageSlot = () => {
+    setImagesBase64([...imagesBase64, ""]);
+    setImagesPreviews([...imagesPreviews, ""]);
+  };
+
+  const removeImage = (index) => {
+    setImagesBase64(imagesBase64.filter((_, i) => i !== index));
+    setImagesPreviews(imagesPreviews.filter((_, i) => i !== index));
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    axios
+      .put(`${backendUrl}/updateEvent/${id}`, {
+        mainImage: mainImageBase64,
+        images: imagesBase64.filter(Boolean),
+        date,
+        place,
+        title,
+        text,
+      })
+      .then(() => navigate("/"))
+      .catch(console.log);
+  };
+
   return (
-    <div className="d-flex  justify-content-center align-items-center"
-             style={{ width: "99vw", height: "100vh",marginTop:"110px", backgroundColor: "rgb(205,230,155)" }}
->
- <div className="w-50 bg-white rounded p-3">
-  <form onSubmit={Update}>
-    <h2> Update Event </h2>
-    <div className="mb-2">
-      <label htmlFor="">date</label>
-      <input type="text" placeholder="Enter date" className="form-control"
-      value = {date}  onChange={(e) => setDate(e.target.value)}/>
+    <div className="cte-container">
+      <div className="cte-card">
+        <form onSubmit={handleUpdate}>
+          <div className="cte-field">
+            <label>Date</label>
+            <input className="cte-input" value={date} onChange={(e) => setDate(e.target.value)} />
+          </div>
+          <div className="cte-field">
+            <label>Place</label>
+            <input className="cte-input" value={place} onChange={(e) => setPlace(e.target.value)} />
+          </div>
+          <div className="cte-field">
+            <label>Title</label>
+            <input className="cte-input" value={title} onChange={(e) => setTitle(e.target.value)} />
+          </div>
+          <div className="cte-field">
+            <label>Text</label>
+            <input className="cte-input" value={text} onChange={(e) => setText(e.target.value)} />
+          </div>
+
+          {/* Main Image */}
+          <div className="cte-field">
+            <label>Main Image</label>
+            <input type="file" id="mainImageInput" style={{ display: "none" }} accept="image/*" onChange={handleMainImageChange} />
+            <button type="button" className="btn btn-primary btn-sm" onClick={() => openFilePicker("mainImageInput")}>
+              Select Main Image
+            </button>
+            <div className="image-preview">
+              <img src={mainImagePreview} alt="Main" />
+            </div>
+          </div>
+
+          {/* Detail Images */}
+          <button type="button" className="btn btn-secondary btn-sm cte-add-btn" onClick={addImageSlot}>
+            + Add Image
+          </button>
+          {imagesBase64.map((img, idx) => (
+            <div className="cte-image-row" key={idx}>
+              <div className="flex-grow-1">
+                <label>Image {idx + 1}</label>
+                <input type="file" id={`imageInput${idx}`} style={{ display: "none" }} accept="image/*" onChange={(e) => handleImageChange(idx, e)} />
+                <button type="button" className="btn btn-primary btn-sm" onClick={() => openFilePicker(`imageInput${idx}`)}>
+                  Select Image
+                </button>
+                <button type="button" className="btn btn-danger btn-sm cte-del-btn" onClick={() => removeImage(idx)}>
+                  Remove
+                </button>
+                <div className="image-preview">
+                  <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <br />
+          <button type="submit" className="btn btn-success cte-submit">
+            Update
+          </button>
+        </form>
+      </div>
     </div>
-
-   <div className="mb-2">
-      <label htmlFor="">place</label>
-      <input type="text" placeholder="Enter place" className="form-control"
-      value = {place}     onChange={(e) => setPlace(e.target.value)}/>
-    </div>
-
-
-       <div className="mb-2">
-      <label htmlFor="">title </label>
-      <input type="text" placeholder="Enter title " className="form-control"
-      value = {title }     onChange={(e) => setTitle(e.target.value)}/>
-    </div>
-      <div className="mb-2">
-      <label htmlFor=""> text</label>
-      <input type="text" placeholder="Enter  text" className="form-control"
-      value = { text}     onChange={(e) => setText(e.target.value)}/>
-    </div>
-     {/* <div className="mb-2">
-      <label htmlFor="">ImageId</label>
-      <input type="text" placeholder="Enter ImageId" className="form-control"
-      value = {imageId}     onChange={(e) => setImageId(e.target.value)}/>
-    </div> */}
-
-{/* Main image */}
-<div className="mb-2">
-  <label>Main Image</label>
-  <input
-    type="text"
-    placeholder="Enter main image URL"
-    className="form-control"
-    value={mainImage}
-    onChange={(e) => setMainImage(e.target.value)
-
-
-    }
-  />
-</div>
-
-{/* Detail images */}
-{/* {images.map((img, idx) => (
-  <div className="mb-2" key={idx}>
-    <label>Detail Image {idx + 1}</label>
-    <input
-      type="text"
-      placeholder={`Enter image ${idx + 1} URL`}
-      className="form-control"
-      value={img}
-      onChange={(e) => {
-        const newImages = [...images];
-        newImages[idx] = e.target.value;
-        setImages(newImages);
-      }}
-    />
-  </div>
-))} */}
-
-{/* Detail images */}
-{images.map((img, idx) => (
-  <div className="mb-2 d-flex align-items-center" key={idx}>
-    <div className="flex-grow-1">
-      <label>Detail Image {idx + 1}</label>
-      <input
-        type="text"
-        placeholder={`Enter image ${idx + 1} URL`}
-        className="form-control"
-        value={img}
-        onChange={(e) => {
-          const newImages = [...images];
-          newImages[idx] = e.target.value;
-          setImages(newImages);
-        }}
-      />
-    </div>
-    {/* Delete button */}
-    <button
-                 style={{ marginTop:"20px" }}
-
-      type="button"
-      className="btn btn-danger btn-sm ms-2"
-      onClick={() => {
-        const newImages = images.filter((_, i) => i !== idx);
-        setImages(newImages);
-      }}
-    >
-      Delete
-    </button>
-  </div>
-))}
-
-{/* Add new image field */}
-<button
-                 style={{ marginBottom:"20px" }}
-  type="button"
-  className="btn btn-primary btn-sm mt-2"
-  onClick={() => setImages([...images, ""])}
->
-  + Add Image
-</button>
-
-<br/>
- {/* <tr></tr> */}
-    <button className="btn btn-success"> Update</button>
-  </form>
-  </div>
-  </div>
-  )
+  );
 }
 
-  export default UpdateEvent;
+export default UpdateEvent;
+
+
+
+  
+
+
+//     <div className="d-flex  justify-content-center align-items-center"
+//              style={{ width: "99vw", height: "100vh",marginTop:"110px", backgroundColor: "rgb(205,230,155)" }}
+// >
+//  <div className="w-50 bg-white rounded p-3">
+//   <form onSubmit={Update}>
+//     <h2> Update Event </h2>
+//     <div className="mb-2">
+//       <label htmlFor="">date</label>
+//       <input type="text" placeholder="Enter date" className="form-control"
+//       value = {date}  onChange={(e) => setDate(e.target.value)}/>
+//     </div>
+
+//    <div className="mb-2">
+//       <label htmlFor="">place</label>
+//       <input type="text" placeholder="Enter place" className="form-control"
+//       value = {place}     onChange={(e) => setPlace(e.target.value)}/>
+//     </div>
+
+
+//        <div className="mb-2">
+//       <label htmlFor="">title </label>
+//       <input type="text" placeholder="Enter title " className="form-control"
+//       value = {title }     onChange={(e) => setTitle(e.target.value)}/>
+//     </div>
+//       <div className="mb-2">
+//       <label htmlFor=""> text</label>
+//       <input type="text" placeholder="Enter  text" className="form-control"
+//       value = { text}     onChange={(e) => setText(e.target.value)}/>
+//     </div>
+//      {/* <div className="mb-2">
+//       <label htmlFor="">ImageId</label>
+//       <input type="text" placeholder="Enter ImageId" className="form-control"
+//       value = {imageId}     onChange={(e) => setImageId(e.target.value)}/>
+//     </div> */}
+
+// {/* Main image */}
+// <div className="mb-2">
+//   <label>Main Image</label>
+//   <input
+//     type="text"
+//     placeholder="Enter main image URL"
+//     className="form-control"
+//     value={mainImage}
+//     onChange={(e) => setMainImage(e.target.value)
+
+
+//     }
+//   />
+// </div>
+
+// {/* Detail images */}
+// {/* {images.map((img, idx) => (
+//   <div className="mb-2" key={idx}>
+//     <label>Detail Image {idx + 1}</label>
+//     <input
+//       type="text"
+//       placeholder={`Enter image ${idx + 1} URL`}
+//       className="form-control"
+//       value={img}
+//       onChange={(e) => {
+//         const newImages = [...images];
+//         newImages[idx] = e.target.value;
+//         setImages(newImages);
+//       }}
+//     />
+//   </div>
+// ))} */}
+
+// {/* Detail images */}
+// {images.map((img, idx) => (
+//   <div className="mb-2 d-flex align-items-center" key={idx}>
+//     <div className="flex-grow-1">
+//       <label>Detail Image {idx + 1}</label>
+//       <input
+//         type="text"
+//         placeholder={`Enter image ${idx + 1} URL`}
+//         className="form-control"
+//         value={img}
+//         onChange={(e) => {
+//           const newImages = [...images];
+//           newImages[idx] = e.target.value;
+//           setImages(newImages);
+//         }}
+//       />
+//     </div>
+//     {/* Delete button */}
+//     <button
+//                  style={{ marginTop:"20px" }}
+
+//       type="button"
+//       className="btn btn-danger btn-sm ms-2"
+//       onClick={() => {
+//         const newImages = images.filter((_, i) => i !== idx);
+//         setImages(newImages);
+//       }}
+//     >
+//       Delete
+//     </button>
+//   </div>
+// ))}
+
+// {/* Add new image field */}
+// <button
+//                  style={{ marginBottom:"20px" }}
+//   type="button"
+//   className="btn btn-primary btn-sm mt-2"
+//   onClick={() => setImages([...images, ""])}
+// >
+//   + Add Image
+// </button>
+
+// <br/>
+//  {/* <tr></tr> */}
+//     <button className="btn btn-success"> Update</button>
+//   </form>
+//   </div>
+//   </div>
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
   // 2

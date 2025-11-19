@@ -238,7 +238,7 @@ export default function Eventsch() {
   //     });
   // }, []);
 
-
+ 
    useEffect(() => {
     axios
       .get(`${backendUrl}/`) // make sure backend route is /events

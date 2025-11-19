@@ -110,15 +110,37 @@ function Events() {
 //get product from server 
                 // .post("http://localhost:3001/createEvent/", formData, {
 
-  useEffect(()=>{
+//   useEffect(()=>{
 
-    axios.get(`${backendUrl}/`)
-        // axios.get("http://localhost:3001/")
+//     axios.get(`${backendUrl}/`)
+//         // axios.get("http://localhost:3001/")
 
-    .then(result => 
-    setEvents(result.data))
-    .catch(err => console.log(err))
-}, [location]); // ✅ كل ما تغيّر المسار (navigate) بتجيب بيانات جديدة
+//     .then(result => 
+//     setEvents(result.data))
+//     .catch(err => console.log(err))
+// }, [location]); // ✅ كل ما تغيّر المسار (navigate) بتجيب بيانات جديدة
+
+
+useEffect(() => {
+  axios.get(`${backendUrl}/`)
+    .then(result => {
+      const data = result.data;
+      if (Array.isArray(data)) {
+        setEvents(data);
+      } else if (data && typeof data === "object" && data.events) {
+        // if backend wraps events inside an object
+        setEvents(Array.isArray(data.events) ? data.events : []);
+      } else {
+        setEvents([]); // fallback
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      setEvents([]); // fallback
+    });
+}, [location]);
+
+
 //[]is empty this means useEffect implememnts only once when loading page 
 
 
