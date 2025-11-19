@@ -206,7 +206,8 @@ const handleDelete  = (id) => {
                   <td className="td-events">
                     <img
                       // src={`http://localhost:3001${event.mainImage}`}
-                                            src={`${backendUrl}${event.mainImage}`}
+                                            // src={`${backendUrl}${event.mainImage}`}
+                                            src={event.mainImage}
 
                       alt={event.title}
                       className="main-image-event"
@@ -220,7 +221,8 @@ const handleDelete  = (id) => {
                           <div key={idx} className="image-wrapper">
                             <img
                               // src={`http://localhost:3001${img}`}
-                                   src={`${backendUrl}${img}`}
+                                  //  src={`${backendUrl}${img}`}
+                                     src={img}
                               alt={`img-${idx}`}
                               className="sub-image-event"
                             />

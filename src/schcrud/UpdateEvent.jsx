@@ -132,7 +132,7 @@ const [images, setImages] = useState([""]); // up to 3 images(["", "", ""])
   const [title ,setTitle] = useState("")
     const [ text,setText] = useState("")
  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-        axios.get(`${backendUrl}/`)
+        // axios.get(`${backendUrl}/`)
   
 
   const navigate=useNavigate()
@@ -284,8 +284,8 @@ const [images, setImages] = useState([""]); // up to 3 images(["", "", ""])
   + Add Image
 </button>
 
-
- <tr></tr>
+<br/>
+ {/* <tr></tr> */}
     <button className="btn btn-success"> Update</button>
   </form>
   </div>

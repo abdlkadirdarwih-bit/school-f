@@ -149,13 +149,13 @@
   /* background-color: rgb(55, 168, 11); */
 }
 .img-container {
-  flex: 1; 
+  /* flex: 1;  */
   /* image takes 2/3 of space */
 }
 
 .img1-about-sec2-sch {
-    width: 100%;
-  max-width: 500px; 
+    /* width: 100%; */
+  width: 400px; 
   /* height: auto; */
     height: 350px;
 
@@ -252,13 +252,13 @@
     padding: 0 25px;
   }
   .img1-about-sec2-sch {
-    width: 100%;
-    max-width: 100%; 
+   width: 100%;
+     /* max-width: 100%;  */
     /* full width on mobile */
 
     /* width: 700px; */
     /* height: 250px; */
-    height: auto;
+    /* height: auto; */
 
     /* padding-top: 50px; */
 

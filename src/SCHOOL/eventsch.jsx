@@ -136,7 +136,7 @@ const handleMoreClick = () => {
 <img className="img2-event-sch" src={mainImage} alt="Main" />
 
         <div className="place-title-sec3-event">
-                 <div className="date-sec3-event"><IoMdTime />{date}</div>
+                 <div className="date-sec3-event"><span className='icontime'><IoMdTime  /></span>{date}</div>
           <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
 </div>
         <div className="text-title-sec3-event">
@@ -149,6 +149,8 @@ const handleMoreClick = () => {
             WebkitLineClamp: expanded ? "unset" : 2, // 👈 show 2 lines first
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
+            textAlign: "right", // 👈 Align button text to right
+    direction: "rtl", // 👈 RTL for button text
           }}
         >
 
@@ -169,6 +171,7 @@ const handleMoreClick = () => {
             cursor: "pointer",
             background: "none",
             border: "none",
+        
           }}
         >
           {/* {expanded ? " " : "  عرض المزيد "} */}

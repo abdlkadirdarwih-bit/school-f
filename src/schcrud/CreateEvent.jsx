@@ -363,7 +363,6 @@ import myImage from "../assets/photo-xxl.png";
 import imageCompression from "browser-image-compression"; // optional for compression
 
 function CreateEvent() {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
 
   const [mainImageBase64, setMainImageBase64] = useState("");
@@ -389,7 +388,12 @@ function CreateEvent() {
     const file = e.target.files[0];
     if (!file) return;
 
-    const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+    // const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+const compressed = await imageCompression(file, { 
+  maxSizeMB: 0.01,
+  maxWidthOrHeight: 800,
+  useWebWorker: true,
+});
     const base64 = await convertToBase64(compressed);
     setMainImageBase64(base64);
     setMainImagePreview(base64);
@@ -400,7 +404,12 @@ function CreateEvent() {
     const file = e.target.files[0];
     if (!file) return;
 
-    const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+    // const compressed = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1024 });
+    const compressed = await imageCompression(file, { 
+  maxSizeMB: 0.01,
+  maxWidthOrHeight: 800,
+  useWebWorker: true,
+});
     const base64 = await convertToBase64(compressed);
 
     const updatedBase64 = [...imagesBase64];
@@ -426,6 +435,7 @@ function CreateEvent() {
 
   const submit = (e) => {
     e.preventDefault();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     axios
       .post(`${backendUrl}/createEventBase64`, {
