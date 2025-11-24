@@ -277,7 +277,8 @@ export default function Aboutsch() {
           <Section4
             title=" مدير"
             name="علي"
-            description=" راحة وسهولة في كل مكان ! استمتع آمنةحيث يمكن  التوصيل السريع  في كل خطوة"
+            description=" 
+            Lorem ipsum dolor sit amet, conseta viva tempus ornare velit, sapien luctus urna dictum pharetra. Aenean turpis odio, gravida nisl porta, cursus ante sed, pretium felis at, aliquam eros"
             imageId="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnMuUrcxFoI9TYUSFEhWBr6cUXC_5853jqXQ&s"
 
           />
@@ -287,7 +288,8 @@ export default function Aboutsch() {
             title=" مساعد مدير"
             name="علي"
 
-            description=" راحة وسهولة في كل مكان ! استمتع آمنةحيث يمكن  التوصيل السريع  في كل خطوة"
+            description="          
+            Lorem ipsum dolor sit amet, conseta viva tempus ornare velit, sapien luctus urna dictum pharetra. Aenean turpis odio, gravida nisl porta, cursus ante sed, pretium felis at, aliquam eros"
             imageId="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnMuUrcxFoI9TYUSFEhWBr6cUXC_5853jqXQ&s"
 
           />
@@ -296,7 +298,8 @@ export default function Aboutsch() {
           <Section4
             title=" محاسب"
             name="علي"
-            description=" راحة وسهولة في كل مكان ! استمتع آمنةحيث يمكن  التوصيل السريع  في كل خطوة"
+            description="            
+             Lorem ipsum dolor sit amet, conseta viva tempus ornare velit, sapien luctus urna dictum pharetra. Aenean turpis odio, gravida nisl porta, cursus ante sed, pretium felis at, aliquam eros"
             imageId="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnMuUrcxFoI9TYUSFEhWBr6cUXC_5853jqXQ&s"
 
           />

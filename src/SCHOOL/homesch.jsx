@@ -145,7 +145,7 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><span className='icontime'><IoMdTime  /></span>{date}</div>
 
-          <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
+          <div className="place-sec3-event"> {place} <FiMapPin className='' /></div>
         </div>
         <div className="text-title-sec3-event">
           <div className="title-sec3-event">{title}</div>
@@ -351,7 +351,9 @@ export default function Homesch() {
       <div className="sect1home">
         <Section1
           title=" الرؤية"
-          text='  هل تبحث عن منتج لم تجده في قائمتنا؟ </br>نحن هنا لتلبية احتياجاتك ! </br>  إذا كنت بحاجة إلى اي منتج غير متوفر حاليًاعلى موقعنا'
+          text='  
+           
+Lorem ipsum dolor sit amet, conseta viva tempus ornare velit, </br>sapien luctus urna dictum pharetra. Aenean turpis odio, gravida nisl porta,</br> cursus ante sed, pretium felis at, aliquam eros        '
         />
       </div>
 {/* <div class="form-group">
@@ -366,7 +368,9 @@ export default function Homesch() {
           //         //  imageId: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQF8UhOkTG9alEkYKkzPfnlHawXQRXK15XUQ&s'
 
           title="الرسالة"
-          text='  هل تبحث عن منتج لم تجده في قائمتنا؟ </br>نحن هنا لتلبية احتياجاتك ! </br>  إذا كنت بحاجة إلى اي منتج غير متوفر حاليًاعلى موقعنا'
+          text=' 
+          Lorem ipsum dolor sit amet, conseta viva tempus ornare velit, </br>sapien luctus urna dictum pharetra. Aenean turpis odio, gravida nisl porta, </br>cursus ante sed, pretium felis at, aliquam eros 
+          '
         //         // description=" راحة وسهولة في كل مكان !</br> استمتع بتجربة تسوق سهلة وآمنةحيث يمكنك طلب منتجاتك المحلية المفضلة بكل سهولة عبر موقعنا الإلكتروني مع ضمان </br>التوصيل السريع والشفافية في كل خطوة"
         />
 

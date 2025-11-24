@@ -294,10 +294,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import myImage from "../assets/photo-xxl.png";
 import imageCompression from "browser-image-compression";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 
 function UpdateEvent() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [date, setDate] = useState("");
@@ -310,6 +316,7 @@ function UpdateEvent() {
 
   const [imagesBase64, setImagesBase64] = useState([]);
   const [imagesPreviews, setImagesPreviews] = useState([]);
+const [confirmImageIndex, setConfirmImageIndex] = useState(null);
 
   // Convert file to Base64
   const convertToBase64 = (file) =>
@@ -386,29 +393,45 @@ function UpdateEvent() {
         title,
         text,
       })
-      .then(() => navigate("/"))
-      .catch(console.log);
+      // .then(() => navigate("/"))
+      // .catch(console.log);
+      
+      .then(() => {
+  toast.success("Message updated successfully!");
+    setTimeout(() => {
+      navigate("/");               // <--- redirect after 1.5 seconds
+    }, 4500);
+        setUpdateSuccess(true);        // <--- show success message
+
+  })
+  // .catch(console.log);
+  .catch(() => toast.error("Update failed!"));
   };
+
+
+
 
   return (
     <div className="cte-container">
       <div className="cte-card">
         <form onSubmit={handleUpdate}>
+                      <h2 className="contacts-table-create-event-title">Update Event</h2>
+
           <div className="cte-field">
             <label>Date</label>
-            <input className="cte-input" value={date} onChange={(e) => setDate(e.target.value)} />
+            <input className="cte-input" placeholder="Date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
           <div className="cte-field">
             <label>Place</label>
-            <input className="cte-input" value={place} onChange={(e) => setPlace(e.target.value)} />
+            <input className="cte-input" placeholder="Place" value={place} onChange={(e) => setPlace(e.target.value)} />
           </div>
           <div className="cte-field">
             <label>Title</label>
-            <input className="cte-input" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input className="cte-input" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div className="cte-field">
             <label>Text</label>
-            <input className="cte-input" value={text} onChange={(e) => setText(e.target.value)} />
+            <input className="cte-input" placeholder="Text" value={text} onChange={(e) => setText(e.target.value)} />
           </div>
 
           {/* Main Image */}
@@ -435,9 +458,36 @@ function UpdateEvent() {
                 <button type="button" className="btn btn-primary btn-sm" onClick={() => openFilePicker(`imageInput${idx}`)}>
                   Select Image
                 </button>
-                <button type="button" className="btn btn-danger btn-sm cte-del-btn" onClick={() => removeImage(idx)}>
+                <button type="button" className="btn btn-danger btn-sm cte-del-btn" 
+                // onClick={() => removeImage(idx)}
+                  onClick={() => setConfirmImageIndex(idx)}
+
+                >
                   Remove
                 </button>
+
+                {confirmImageIndex !== null && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <p>Are you sure you want to delete this image?</p>
+
+      <button
+        className="btn-yes"
+        onClick={() => {
+          removeImage(confirmImageIndex);
+          setConfirmImageIndex(null);
+        }}
+      >
+       Delete
+      </button>
+
+      <button className="btn-cancel" onClick={() => setConfirmImageIndex(null)}>
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+
                 <div className="image-preview">
                   <img src={imagesPreviews[idx] || myImage} alt={`Image ${idx + 1}`} />
                 </div>
@@ -449,7 +499,22 @@ function UpdateEvent() {
           <button type="submit" className="btn btn-success cte-submit">
             Update
           </button>
+    {/* {updateSuccess && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <p>Event Updated Successfully ✔</p>
+    </div>
+  </div>
+)} */}
+
+
         </form>
+    
+   <ToastContainer
+        position="top-center"
+        // autoClose={3000}
+        hideProgressBar={false}
+      />
       </div>
     </div>
   );

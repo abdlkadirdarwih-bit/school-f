@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 import myImage from "../assets/WhatsApp Image 2025-09-19 at 10.49.02 PM.jpeg";
@@ -35,11 +35,12 @@ function Navbar() {
              </Link></div>        </div> */}
              <div className="logo">
       {/* <Link className="bader-link" to="/homesch">BaderSchool</Link> */}
+  <Link to="/">
 <img 
   className="img1-Navb-sch" 
   src={myImage} 
   alt="productName" 
-/>
+/>           </Link>
 
 </div>
         {/* <ul className={isOpen ? "nav-link active" : "nav-link"}>
@@ -67,7 +68,8 @@ function Navbar() {
 
 </ul>
 
-<div className="icon" onClick={toggleMenu}> <FaBars />
+<div className="icon" onClick={toggleMenu}> 
+      {isOpen ? <FaTimes /> : <FaBars />}
 </div>
       </nav>
     </div>

@@ -44,9 +44,9 @@
   transition: 0.2s;
 }
 .form-input::placeholder {
-  text-align: right;
+  text-align: left;
 }
-.form-input:focus {
+.form-group .form-input:focus {
   border-color: #4CAF50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
 }
@@ -111,7 +111,7 @@
   background-color: #388E3C;
 }
 
-.image-preview {
+/* .image-preview {
   margin-top: 10px;
 }
 
@@ -119,8 +119,21 @@
   max-width: 200px;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+} */
+
+.image-preview {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* center the image */
 }
 
+.image-preview img {
+  width: 100%;       /* take full width of parent */
+  max-width: 200px;  /* limit maximum size */
+  height: auto;      /* maintain aspect ratio */
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 
 
 

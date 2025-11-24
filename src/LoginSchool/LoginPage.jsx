@@ -40,10 +40,11 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
   return (
     <div className="containerlogin">
       <form className="form-box" onSubmit={handleLogin}>
-        <h2>Login </h2>
+        <h2>تسجيل دخول  </h2>
+        <label>البريد الإلكتروني </label>
         <input
           type="email"
-          placeholder="Enter Email"
+          placeholder="البريد الإلكتروني "
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -57,11 +58,11 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
           onChange={(e) => setPassword(e.target.value)}
           required
         /> */}
-
+        <label> كلمة المرور </label>
 <div className="password-container">
           <input
             type={showPassword ? "text" : "password"} // 👈 toggle type
-            placeholder="Enter Password"
+            placeholder="كلمة المرور "
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -77,11 +78,11 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
         </div>
 
 
-        <button type="submit">Login</button>
+        <button type="submit">تسجيل</button>
         <p className="link">
           <Link to="/change-password" state={{ email }}>
-            Change Password
-          </Link>
+تغير كلمة المرور            
+</Link>
         </p>
 
         {msg && <p className="msg">{msg}</p>}

@@ -12,7 +12,10 @@ import { Link } from "react-router-dom";
 
 import { IoMdTime } from "react-icons/io";
 import { FiMapPin } from "react-icons/fi";
-
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 
 
@@ -49,8 +52,8 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><span className='icontime'><IoMdTime  /></span>{date}</div>
        
-                 <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
-        </div>
+          <div className="place-sec3-event"> {place} <FiMapPin className='' /></div>
+          </div>
         <div className="text-title-sec3-event">
           <div className="title-sec3-event">{title}</div>
 
@@ -93,15 +96,18 @@ function Section3({ images = [], mainImage, date, place, title, text }) {
   );
 }
 
+
+
 export default function Admin() {
 
   //   const navigate = useNavigate();
   const [inform, setInform] = useState([]);
   const [contacts, setContacts] = useState([]);
+const [confirmDelete, setConfirmDelete] = useState(null);
 
  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
- 
+  
 
   useEffect(() => {
         // Fetch data from your backend API 
@@ -130,6 +136,50 @@ export default function Admin() {
       .catch(err => console.log(err));
   }, []);
 
+
+
+// const deleteMessage = (id) => {
+//   // if (!window.confirm("Are you sure you want to delete this message?")) return;
+
+//   axios
+//     .delete(`${backendUrl}/deleteMessage/${id}`)
+//     .then(() => {
+//       setContacts((prev) => prev.filter((msg) => msg._id !== id));
+//             setConfirmDelete(null); // close popup
+//     })
+//     .catch((err) => console.log(err));
+// };
+
+// 2
+// const deleteMessage = (id) => {
+//   axios
+//     .delete(`${backendUrl}/deleteMessage/${id}`)
+//     .then(() => {
+//       setContacts(prev => prev.filter(msg => msg._id !== id));
+
+//       toast.success("Message deleted successfully!");
+//     })
+//     .catch(() => {
+//       toast.error("Failed to delete message!");
+//     });
+// };
+
+
+
+const askDelete = (id) => setConfirmDelete(id);
+
+const confirmDeleteMessage = () => {
+  axios
+    .delete(`${backendUrl}/deleteMessage/${confirmDelete}`)
+    .then(() => {
+      setContacts(prev => prev.filter(msg => msg._id !== confirmDelete));
+      toast.success("Message deleted successfully!");
+      setConfirmDelete(null);
+    })
+    .catch(() => toast.error("Delete failed!"));
+};
+
+    
 
 
   return (
@@ -184,7 +234,9 @@ export default function Admin() {
                     <th className="thead-messages-th">Full Name</th>
                     <th className="thead-messages-th">Email </th>
                     <th className="thead-messages-th">Title</th>
-                    <th className="thead-messages-th">Notes</th>
+                    <th >Notes</th>
+                    <th className="thead-messages-th">Actions</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -195,13 +247,57 @@ export default function Admin() {
                       <td>{c.phonenumber}</td>
                       <td>{c.titlename}</td>
                       <td>{c.additionalnotes}</td>
+                        <td>
+        {/* <button
+          onClick={() => deleteMessage(c._id)}
+          className="btn-delete-message"
+//           style={{
+// border:"none"    
+//         }}
+        > */}
+                <button onClick={() => askDelete(c._id)}>
+
+          <MdOutlineDeleteOutline  style={{
+                  color:"red"
+            }}
+            />
+
+        </button>
+
+ 
+
+{confirmDelete && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <p>Are you sure you want to delete this message?</p>
+
+      <button onClick={confirmDeleteMessage}
+        style={{
+                  color:"red"
+            }}
+      > Delete</button>
+      <button onClick={() => setConfirmDelete(null)}>Cancel</button>
+    </div>
+  </div>
+)}
+
+
+        
+      </td>
                     </tr>
                   ))}
+                  
                 </tbody>
               </table>
             </div>
 
+   <ToastContainer
+        position="top-center"
+        // autoClose={20}
+        hideProgressBar={false}
+      />
           </div>
+        
         </div>
       </div>
 

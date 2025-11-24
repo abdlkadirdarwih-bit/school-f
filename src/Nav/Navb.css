@@ -82,7 +82,6 @@ height:90px ;
 
     margin: 0 auto;
     padding: 0 1rem;
-
 }
 
 .container nav {
@@ -126,6 +125,7 @@ height:90px ;
     display: block;
     border-radius: 10px;
     border-radius: 4px;
+    text-align: right;
 
 }
 
@@ -152,9 +152,8 @@ height:90px ;
 }
 
 .content {
-
     position: absolute;
-    top: 9%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%, 0%);
 }
@@ -172,10 +171,10 @@ height:90px ;
 
 @media(max-width:768px) {
 
-    header {
-        /* max-width: 1440px; */
-        /* height: 100vh; */
-    }
+    /* header {
+        max-width: 1440px;
+        height: 100vh;
+    } */
 
     .content h2 {
         font-size: 4rem;
@@ -205,7 +204,7 @@ height:90px ;
     }
 
     .nav-link.active {
-        top: 6%;
+        top: 1%;
         transition: all 0.7s ease-in;
 
     }

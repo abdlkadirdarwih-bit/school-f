@@ -95,7 +95,7 @@ ul{
 
 .contact-information {
     width: 45%;
-    height: 470px;
+    height: 550px;
     /* text-align: right; */
     /* display: flex;
   align-items: center;
@@ -141,12 +141,10 @@ text-align: right;
     color: white;
 }
 
-.item-contact-icon-sch {
-    /* padding: 120px; */
+/* .item-contact-icon-sch {
+    
 
-    /* font-size: 95px; */
-
-}
+} */
 
 .contentn {
     width: 45%;
@@ -162,19 +160,17 @@ text-align: right;
     margin-bottom: 20px;
 }
 
-.contact-detail li {
-    /* display: flex; */
-    /* color: #FF6700; */
-    /* margin-right: 15px;
+/* .contact-detail li {
+    margin-right: 15px;
 	border: 1px solid #EBEBEB;
 	border-radius: 50%;
 	width: 40px;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-      gap: 80px;  */
+      gap: 80px; 
 
-}
+} */
 
 /* .contact-details {
   list-style: none;
@@ -238,6 +234,17 @@ padding-bottom: 20px;
     gap: 20px;
     padding: 20px;
     color: white;
+    
+}
+.form-firstname  {
+    padding-bottom: 10px;
+      direction: rtl;
+  text-align: right;
+
+}
+.form-firstname label {
+    padding-bottom: 10px;
+
 }
 
 .form-firstname input {
@@ -247,7 +254,9 @@ padding-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     /* margin-left: 30px; */
-    margin-bottom: 30px;
+    /* margin-bottom: 0px; */
+      /* direction: rtl;
+  text-align: right; */
     /* padding: 10px;
     border: 1px solid #e3d9bf;
     outline-color: #e3d9bf;
@@ -272,6 +281,11 @@ padding-top: 80px;
 .form-firstname input::placeholder {
 text-align: right;
 }
+.form-firstname .addnotes {
+    height: 90px;
+
+}
+
 /* .fullname::placeholder {
     padding-left: 460px;
 
@@ -316,4 +330,23 @@ text-align: right;
     background-color:  #78ad15;
 
     font-size: 17px;
+     &:hover {
+    background-color: rgba(142, 223, 95, 0.918);
+  }
+}
+/* .form-firstname input:focus { */
+
+input.error-input {
+  border: 1px solid red;
+    /* padding-bottom: 25px; */
+    
+
+}
+
+.error-text {
+  color: red;
+  font-size: 0.8rem;
+  /* margin-top: 2px; */
+  padding-bottom: 15px;
+  display: block;
 }

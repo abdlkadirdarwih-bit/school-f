@@ -21,7 +21,7 @@
 
 .password-toggle {
   position: absolute;
-  right: 25px;
+  left: 25px;
   top: 10px;
   cursor: pointer;
   color: #555;
@@ -52,6 +52,8 @@
   border-radius: 10px;
   width: 100%;
   max-width: 400px;
+   direction: rtl;
+  text-align: right;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -59,7 +61,10 @@
   text-align: center;
   margin-bottom: 20px;
 }
-
+.form-box label {
+padding-bottom: 10px;
+  
+}
 /* Inputs */
 .form-box input {
   width: 100%;
@@ -67,17 +72,20 @@
   margin-bottom: 15px;
   font-size: 16px;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 5px;
   outline: none;
+   
 }
-
+.form-box input::placeholder {
+  text-align: right;
+}
 .form-box input:focus {
   border-color: #4caf50;
 }
 
 /* Button */
 .form-box button {
-  width: 95%;
+  width: 100%;
   padding: 12px;
   background: #4caf50;
   color: white;
@@ -109,6 +117,7 @@
 
 /* Message */
 .msg {
+  color: red;
   margin-top: 10px;
   text-align: center;
   font-weight: 500;

@@ -102,10 +102,16 @@ import { useLocation } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 
 function Events() {
   const [events,setEvents] = useState([])
   const location = useLocation();
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 //get product from server 
                 // .post("http://localhost:3001/createEvent/", formData, {
@@ -180,20 +186,35 @@ const handleDeleteImage = (eventId, imageIndex) => {
     })
     .catch(err => console.log(err));
 };
-const handleDelete  = (id) => {
-  // axios.delete("http://localhost:3001/deleteUser/"+id)
-    axios.delete(`${backendUrl}/deleteUser/`+id)
+// const handleDelete  = (id) => {
+//   // axios.delete("http://localhost:3001/deleteUser/"+id)
+//     axios.delete(`${backendUrl}/deleteUser/`+id)
 
-  .then(result => {console.log(result)
-    window.location.reload()
-  })
-    .catch(err => console.log(err))
+//   .then(result => {console.log(result)
+//     window.location.reload()
+//   })
+//     .catch(err => console.log(err))
 
-}
+// }
+
+const confirmDeleteEvent = (id) => {
+  axios.delete(`${backendUrl}/deleteUser/` + id)
+    .then(() => {
+      setEvents(prev => prev.filter(e => e._id !== id)); // remove without reload
+            toast.success("Message deleted successfully!");
+
+      setConfirmDeleteId(null); // close modal
+    })
+    // .catch(err => console.log(err));
+        .catch(() => toast.error("Delete failed!"));
+
+};
+
                   // <td>{user.imageId}</td>
   //                <div className="d-flex min-vh-100-custom bg-primary justify-content-center align-items-center">
   // <div className="w-50 bg-white rounded p-3"> 
-   return (
+ 
+ return (
 <div>
   {/* // <div className="users">
   // <div className="">
@@ -204,7 +225,10 @@ const handleDelete  = (id) => {
 
  
  <div className="events-container">
+  
       <div className="events-wrapper">
+                              <h2 className="contacts-table-create-event-title"> Event</h2>
+
         <Link to="/create" className="btn-add-event">
           Add +
         </Link>
@@ -248,12 +272,12 @@ const handleDelete  = (id) => {
                               alt={`img-${idx}`}
                               className="sub-image-event"
                             />
-                            <button
+                            {/* <button
                               className="btn-delete-img"
                               onClick={() => handleDeleteImage(event._id, idx)}
                             >
                               Delete
-                            </button>
+                            </button> */}
                           </div>
                         ))}
                       </div>
@@ -273,16 +297,49 @@ const handleDelete  = (id) => {
                     </Link>
                     <button
                       className="btn-delete-event"
-                      onClick={() => handleDelete(event._id)}
+                      // onClick={() => handleDelete(event._id)}
+                        onClick={() => setConfirmDeleteId(event._id)}
                     >
                       Delete
                     </button>
+        {confirmDeleteId && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <p>Are you sure you want to delete this event?</p>
+
+      <button
+        onClick={() => confirmDeleteEvent(confirmDeleteId)}
+        className="btn-yes"
+      >
+      Delete
+      </button>
+
+      <button
+        onClick={() => setConfirmDeleteId(null)}
+        className="btn-cancel"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+
+
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
+   <ToastContainer
+        position="top-center"
+        // autoClose={20}
+        hideProgressBar={false}
+        // closeOnClick
+        // pauseOnHover
+        // theme="light"
+      />
       </div>
     </div>
 </div>

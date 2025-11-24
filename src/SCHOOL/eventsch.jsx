@@ -137,8 +137,7 @@ const handleMoreClick = () => {
 
         <div className="place-title-sec3-event">
                  <div className="date-sec3-event"><span className='icontime'><IoMdTime  /></span>{date}</div>
-          <div className="place-sec3-event"> <FiMapPin className='' /> {place}</div>
-</div>
+          <div className="place-sec3-event"> {place} <FiMapPin className='' /></div></div>
         <div className="text-title-sec3-event">
          <div className="title-sec3-event">{title}</div>
 

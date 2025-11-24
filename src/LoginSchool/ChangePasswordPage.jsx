@@ -64,21 +64,24 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
   return (
 <div className="change-container">
   <form className="change-form" onSubmit={handleChangePassword}>
-    <h2>Change Password</h2>
+    <h2>تغير كلمة المرور  </h2>
 
  <div className="input-group">
+          <label>البريد الإلكتروني </label>
+
       <input
         type="email"
-        placeholder="Email"
+        placeholder="البريد الإلكتروني "
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
       />
     </div>
     <div className="input-group">
+              <label> كلمة المرور القديمة </label>
       <input
         type={showOld ? "text" : "password"}
-        placeholder="Old Password"
+        placeholder=" كلمة المرور القديمة "
         value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)}
         required
@@ -89,9 +92,10 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
     </div>
 
     <div className="input-group">
+              <label> كلمة المرور الجديدة </label>
       <input
         type={showNew ? "text" : "password"}
-        placeholder="New Password"
+        placeholder=" كلمة المرور الجديدة "
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
         required
@@ -102,9 +106,10 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
     </div>
 
     <div className="input-group">
+              <label> تأكيد كلمة المرور</label>
       <input
         type={showConfirm ? "text" : "password"}
-        placeholder="Confirm Password"
+        placeholder="تأكيد كلمة المرور   "
         value={confirm}
         onChange={(e) => setConfirm(e.target.value)}
         required
@@ -114,9 +119,9 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
       </span>
     </div>
 
-    <button type="submit">Update Password</button>
+    <button type="submit">تحديث كلمة المرور </button>
          <p className="link">
-          <Link to="/Login">Back to Login</Link>
+          <Link to="/Login">الرجوع إلى تسجيل  </Link>
         </p>
 
         {msg && <p className="msg">{msg}</p>}

@@ -28,36 +28,36 @@ import axios from 'axios';
 
 
 function Section1({ imageId, title, text }) {
-  return (
+    return (
 
-  <section>
+        <section>
 
             <div className='img1-title-description-home'>
 
-        {/* {console.log(" Image URL:", imageId)} */}
-<div>
-        <img
-          className="img1-home-sec1-sch"
-          // src={imageId + '.jpg'} 
-          // src={imageId}
-          src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQF8UhOkTG9alEkYKkzPfnlHawXQRXK15XUQ&s'}
-          alt='productName'
-        />
-        </div>
-            <div className='title-description-sec1-home'>
+                {/* {console.log(" Image URL:", imageId)} */}
+                <div>
+                    <img
+                        className="img1-home-sec1-sch"
+                        // src={imageId + '.jpg'} 
+                        // src={imageId}
+                        src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQF8UhOkTG9alEkYKkzPfnlHawXQRXK15XUQ&s'}
+                        alt='productName'
+                    />
+                </div>
+                <div className='title-description-sec1-home'>
 
-        <div className='title-sec1-home'>{title}
-            {/* <h1>{title}</h1> */}
+                    <div className='title-sec1-home'>{title}
+                        {/* <h1>{title}</h1> */}
+                    </div>
+                    {/* <p className="text-sec2-event ">{text} </p> */}
+                    {/* <p className="description-sec2-event ">{description} </p> */}
+                    <div className="text-sec1-home" style={{ whiteSpace: "pre-line" }}>{text.split("</br>").join("\n")} </div>
+
+                </div>
             </div>
-        {/* <p className="text-sec2-event ">{text} </p> */}
-                        {/* <p className="description-sec2-event ">{description} </p> */}
-        <div className="text-sec1-home"  style={{ whiteSpace: "pre-line" }}>{text.split("</br>").join("\n")} </div>
 
-      </div>
-            </div>
-
-    </section>
-  );
+        </section>
+    );
 }
 
 
@@ -83,12 +83,27 @@ export default function Contactsch() {
     const [phonenumber, setPhonenumber] = useState()
     const [titlename, setTitlename] = useState()
     const [additionalnotes, setAdditionalnotes] = useState()
+    const [errors, setErrors] = useState({});   
     const navigate = useNavigate();
- const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        const newErrors = {};
+        if (!fullname) newErrors.fullname = "الاسم الكامل مطلوب";
+        if (!phonenumber) newErrors.phonenumber = "رقم الهاتف مطلوب";
+        if (!additionalnotes) newErrors.additionalnotes = "الرسالة مطلوبة";
+
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return; // stop submission
+        }
+
+        // Clear errors if all good
+        setErrors({});
+
         axios.post(`${backendUrl}/contactschool`, {
-                // axios.post('http://localhost:3001/contactschool',{
+            // axios.post('http://localhost:3001/contactschool',{
 
             fullname,
             phonenumber,
@@ -108,8 +123,8 @@ export default function Contactsch() {
 
 
         <div className="page">
-            
-           {/* <div className="sect1home">
+
+            {/* <div className="sect1home">
 
         <Section1
           title="أطلب منتجك"
@@ -117,20 +132,20 @@ export default function Contactsch() {
        />
       </div> */}
 
-      
-<div className='contactpage'>
- <div className="container-image-contact">
 
-  <div className="content-contact">
-<h2>مدرسة البدر للتربية والتعليم  </h2>
-<p>مؤسسة تربوية تعليمية، لا تتوخى الربح، مرخص لها من السلطة اللبنانية، بموجب قانون رقم 6384 تاريخ 23\2\1995 .</p>
+            <div className='contactpage'>
+                <div className="container-image-contact">
 
-  </div>
-  </div>
+                    <div className="content-contact">
+                        <h2>مدرسة البدر للتربية والتعليم  </h2>
+                        <p>مؤسسة تربوية تعليمية، لا تتوخى الربح، مرخص لها من السلطة اللبنانية، بموجب قانون رقم 6384 تاريخ 23\2\1995 .</p>
 
-            <div className="contact-form-details">
-                {/* <div class="right-column"> */}
-                {/* <div className="contact-inform">
+                    </div>
+                </div>
+
+                <div className="contact-form-details">
+                    {/* <div class="right-column"> */}
+                    {/* <div className="contact-inform">
         <div class="contentn">
             <h1>Contact Us</h1>
         <p> TopicListing Template includes homepage, listing page , detail page, and contact</p>
@@ -141,17 +156,17 @@ export default function Contactsch() {
 
         </div>
     </div> */}
-                {/* <!-- contact information --> */}
-                <div className="contact-information">
-                    <h4>معلومات الاتصال </h4>
-                    {/* <div><FiPhone /> +961 78 823 881</div> */}
+                    {/* <!-- contact information --> */}
+                    <div className="contact-information">
+                        <h4>معلومات الاتصال </h4>
+                        {/* <div><FiPhone /> +961 78 823 881</div> */}
 
-                    <div className='item-contact-icon-sch'>
-                        <div className='item-contactsch'>   <FiMail className='icon-sch' />     <span> albader@gmail.com</span></div>
-                        <div className='item-contactsch'>   <FiPhone className='icon-sch' />     <span> +961 78 823 881</span></div>
-                        <div className='item-contactsch'>   <FiMapPin className='icon-sch' />     <span>Fnaydek</span></div>
-                    </div>
-                    {/* <div>  <p>Phone:(123) 456-3350</p></div>
+                        <div className='item-contact-icon-sch'>
+                            <div className='item-contactsch'>   <FiMail className='icon-sch' />     <span> albader@gmail.com</span></div>
+                            <div className='item-contactsch'>   <FiPhone className='icon-sch' />     <span> +961 78 823 881</span></div>
+                            <div className='item-contactsch'>   <FiMapPin className='icon-sch' />     <span>Fnaydek</span></div>
+                        </div>
+                        {/* <div>  <p>Phone:(123) 456-3350</p></div>
                    {/* <div>  <p>Phone:(123) 456-3350</p></div>
                                      <div className='item-contactsch'>   <FiPhone className='icon-sch'/>     <span> +961 78 823 881</span></div> {/* <div>  <p>Phone:(123) 456-3350</p></div>
 
@@ -159,107 +174,106 @@ export default function Contactsch() {
 
          <div>  <p>Adderess:123 Main Street</p></div> */}
 
-                </div>
+                    </div>
 
 
-                {/*  contact information  */}
+                    {/*  contact information  */}
 
 
-                <div className="contact-form">
-                    <h4>أرسل رسالة  </h4>
+                    <div className="contact-form">
+                        <h4>أرسل رسالة  </h4>
 
-                    <form
-                      onSubmit={handleSubmit}
-                    >
+                        <form
+                            onSubmit={handleSubmit}
+                        >
+                            <div className="form-firstname">
+                                {/* {errors.Name && <span>{errors.Name}</span>} */}
+
+                            </div>
+
+                            <div className="form-firstname">
+                                {errors.fullname && <span className="error-text">{errors.fullname}</span>}
+                                      <label>  الاسم الكامل </label>
+                                <input
+                                    className={`fullname ${errors.fullname ? 'error-input' : ''}`}
+                                    type="text"
+                                    name="fullname"
+
+                                    // value={Name}
+                                    placeholder='الاسم الكامل'
+                                    autoComplete='off'
+
+                                    // onChange={handleNameChange}
+                                    // onChange={handleChange}
+                                    onChange={(e) => setFullname(e.target.value)}
+
+                                />
+                                {/* {errors.Name && <span>{errors.Name}</span>} */}
+
+                            </div>
+
+                            <div className="form-firstname">
+  {errors.phonenumber && <span className="error-text">{errors.phonenumber}</span>}
+                           <label>رقم الهاتف </label>
+                                <input
+                                    className={`phonenumber ${errors.phonenumber ? 'error-input' : ''}`}
+                                    type='text'
+                                    name="phonenumber"
+                                    // value={phonenumber}
+                                    placeholder='رقم الهاتف'
+                                    autoComplete='off'
+                                    // onChange={handlephonenumberChange}
+                                    // onChange={handleChange}
+                                    onChange={(e) => setPhonenumber(e.target.value)}
+                                // required
+
+                                />
+
+                            </div>
+                            <div className="form-firstname">
+                                        <label>البريد الإلكتروني </label>
+                                <input
+                                    className='titlename'
+                                    type="text"
+                                    name="titlename"
+                                    // value={titlename}
+                                    placeholder=' البريد الإلكتروني '
+                                    autoComplete='off'
+
+                                    // onChange={handletitlenameChange}
+                                    // onChange={handleChange}
+                                    onChange={(e) => setTitlename(e.target.value)}
+
+                                />
+                                {/* {errors.titlename && <span>{errors.titlename}</span>} */}
+                            </div>
+                            <div className="form-firstname">
+                              {errors.additionalnotes && <span className="error-text">{errors.additionalnotes}</span>}
+                                <label> أدخل رسالتك </label>
+                                <input
+                                    className={`addnotes ${errors.additionalnotes ? 'error-input' : ''}`}
+                                    // value={additionalnotes}
+                                    placeholder='  أدخل رسالتك '
+                                    // onChange={handleadditionalnotesChange}
+                                    // onChange={handleChange}
+                                    onChange={(e) => setAdditionalnotes(e.target.value)}
+                                />
+
+                            </div>
+                            <button type="submit" className='bt3-contact'>ارسل </button>
+
+                        </form>
+
+                    </div>
 
 
-                        <div className="form-firstname">
-
-
-                            {/* {errors.Name && <span>{errors.Name}</span>} */}
-
-                        </div>
-
-                        <div className="form-firstname">
-
-                            <input
-                                className='fullname'
-                                type="text"
-                                name="fullname"
-
-                                // value={Name}
-                                placeholder='الاسم الكامل'
-                                autoComplete='off'
-
-                                // onChange={handleNameChange}
-                                // onChange={handleChange}
-                                onChange={(e) => setFullname(e.target.value)}
-
-                            />
-                            {/* {errors.Name && <span>{errors.Name}</span>} */}
-
-                        </div>
-
-                        <br />
-                        <div className="form-firstname">
-
-                            <input
-                                className='phonenumber'
-                                type='text'
-                                name="phonenumber"
-                                // value={phonenumber}
-                                placeholder=' الايميل'
-                                autoComplete='off'
-                                // onChange={handlephonenumberChange}
-                                // onChange={handleChange}
-                                onChange={(e) => setPhonenumber(e.target.value)}
-                            // required
-
-                            />
-                            {/* {errors.phonenumber && <span>{errors.phonenumber}</span>} */}
-
-                        </div>
-                        <div className="form-firstname">
-                            <input
-                                className='titlename'
-                                type="text"
-                                name="titlename"
-                                // value={titlename}
-                                placeholder='اسم العنوان'
-                                autoComplete='off'
-
-                                // onChange={handletitlenameChange}
-                                // onChange={handleChange}
-                                onChange={(e) => setTitlename(e.target.value)}
-
-                            />
-                            {/* {errors.titlename && <span>{errors.titlename}</span>} */}
-                        </div>
-                        <div className="form-firstname">
-                            <input
-                                className='addnotes'
-                                // value={additionalnotes}
-                                placeholder='  أدخل رسالتك '
-                                // onChange={handleadditionalnotesChange}
-                                // onChange={handleChange}
-                                onChange={(e) => setAdditionalnotes(e.target.value)}
-
-                            />
-                        </div>
-                        <button type="submit" className='bt3-contact'>ارسل </button>
-
-                    </form>
 
                 </div>
 
 
 
             </div>
-
-
-
         </div>
-</div>
     )
 }
 
