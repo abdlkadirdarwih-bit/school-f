@@ -29,7 +29,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
       setMsg(res.data.message);
 
       // ✅ Navigate to /admin if login is successful
-    if (res.data.message === "Login successful") {
+    if (res.data.message === "تسجيل دخول صحيح") {
       navigate("/admin");
     }
     } catch (err) {
