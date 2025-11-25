@@ -126,15 +126,19 @@ setTimeout(() => {
             <h2 className="contacts-table-create-event-title">Add Event</h2>
 
             <div className="form-group">
+                          <label>Date</label>
               <input   type="date" placeholder="Date" className="form-input" value={date} onChange={(e) => setDate(e.target.value)} />
             </div>
             <div className="form-group">
+                          <label>Place</label>
               <input type="text" placeholder="Place" className="form-input" value={place} onChange={(e) => setPlace(e.target.value)} />
             </div>
             <div className="form-group">
+                          <label>Title</label>
               <input type="text" placeholder="Title" className="form-input" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
             <div className="form-group">
+                          <label>Description</label>
               <input type="text" placeholder="Description" className="form-input" value={text} onChange={(e) => setText(e.target.value)} />
             </div>
 
