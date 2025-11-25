@@ -217,7 +217,8 @@
   width: 350px;
   height: 430px;
   /* margin: 20px 0px 0px 0px; */
-  margin: 10px;
+  /* margin: 10px; */
+  margin: 5px auto;
   border: 2px solid rgb(55, 175, 81);
   color: white;
   background-color: white;
